@@ -1,0 +1,1527 @@
+### Eclipse Workspace Patch 1.0
+#P Steve App
+diff --git .classpath .classpath
+new file mode 100644
+index 0000000..26bdfa6
+--- /dev/null
++++ .classpath
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<classpath>
++	<classpathentry kind="src" path="src"/>
++	<classpathentry kind="src" path="gen"/>
++	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
++	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
++	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
++	<classpathentry kind="output" path="bin/classes"/>
++</classpath>
+diff --git .project .project
+new file mode 100644
+index 0000000..0670b1a
+--- /dev/null
++++ .project
+@@ -0,0 +1,33 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<projectDescription>
++	<name>Steve App</name>
++	<comment></comment>
++	<projects>
++	</projects>
++	<buildSpec>
++		<buildCommand>
++			<name>com.android.ide.eclipse.adt.ResourceManagerBuilder</name>
++			<arguments>
++			</arguments>
++		</buildCommand>
++		<buildCommand>
++			<name>com.android.ide.eclipse.adt.PreCompilerBuilder</name>
++			<arguments>
++			</arguments>
++		</buildCommand>
++		<buildCommand>
++			<name>org.eclipse.jdt.core.javabuilder</name>
++			<arguments>
++			</arguments>
++		</buildCommand>
++		<buildCommand>
++			<name>com.android.ide.eclipse.adt.ApkBuilder</name>
++			<arguments>
++			</arguments>
++		</buildCommand>
++	</buildSpec>
++	<natures>
++		<nature>com.android.ide.eclipse.adt.AndroidNature</nature>
++		<nature>org.eclipse.jdt.core.javanature</nature>
++	</natures>
++</projectDescription>
+diff --git AndroidManifest.xml AndroidManifest.xml
+new file mode 100644
+index 0000000..a479be9
+--- /dev/null
++++ AndroidManifest.xml
+@@ -0,0 +1,48 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    package="com.example.qwer"
++    android:versionCode="1"
++    android:versionName="1.0" >
++
++    <uses-sdk
++        android:minSdkVersion="8"
++        android:targetSdkVersion="17" />
++
++    <uses-permission android:name="android.permission.READ_CONTACTS" />
++    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
++    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
++    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
++
++    <application
++        android:allowBackup="true"
++        android:icon="@drawable/ic_launcher"
++        android:label="@string/app_name"
++        android:theme="@style/AppTheme" >
++        <activity
++            android:name="com.example.SteveApp.MainActivity"
++            android:label="@string/app_name" >
++            <intent-filter>
++                <action android:name="android.intent.action.MAIN" />
++
++                <category android:name="android.intent.category.LAUNCHER" />
++            </intent-filter>
++        </activity>
++        <activity
++            android:name="com.example.SteveApp.DisplayMessageActivity"
++            android:label="@string/title_activity_display_message"
++            android:parentActivityName="com.example.SteveApp.MainActivity" >
++            <meta-data
++                android:name="android.support.PARENT_ACTIVITY"
++                android:value="com.example.qwer.MainActivity" />
++        </activity>
++        <activity
++            android:name="com.example.qwer.RevertMessageActivity"
++            android:label="@string/title_activity_revert_message"
++            android:parentActivityName="com.example.SteveApp.MainActivity" >
++            <meta-data
++                android:name="android.support.PARENT_ACTIVITY"
++                android:value="com.example.SteveApp.MainActivity" />
++        </activity>
++    </application>
++
++</manifest>
+diff --git Backups/Alex.txt Backups/Alex.txt
+new file mode 100644
+index 0000000..3741c8e
+--- /dev/null
++++ Backups/Alex.txt
+@@ -0,0 +1,25 @@
++1:Batman|6:Batman|7:Batman|8:Batman|9:Batman|10:AT&T *Now|11:Batman|12:Batman|14:Batman|15:Batman|16:Batman|18:AT&T Customer Care|19:Batman|
++20:Batman|21:Batman|24:Batman|25:Batman|26:Batman|27:Batman|28:Batman|29:Batman|33:Batman|48:Batman|52:Batman|57:Batman|63:Batman|92:Batman|
++138:Batman|143:Batman|144:Batman|151:Batman|156:Batman|158:Batman|204:Batman|341:Batman|532:Batman|534:Batman|535:Batman|536:Batman|537:Julian 
++Lin|538:Batman|539:Batman|540:Batman|541:Batman|542:Alison Kwan|543:Batman|544:Batman|545:Batman|546:Batman|547:Batman|548:Batman|549:Batman|
++550:Batman|551:Batman|552:Batman|553:Batman|554:Batman|555:Batman|556:Batman|557:Batman|558:Batman|559:Batman|560:Batman|561:Batman|562:Batman|
++563:Batman|564:Batman|565:Batman|566:Batman|567:Batman|568:Batman|569:Batman|570:Batman|571:Batman|572:Batman|573:Batman|575:Alison Kwan|
++577:Batman|578:Batman|579:Batman|580:Batman|581:Batman|582:Batman|583:Batman|584:Batman|585:Batman|586:Batman|587:Batman|589:Batman|590:Batman|
++591:Batman|592:Batman|593:Batman|594:Batman|595:Batman|596:Batman|597:Batman|598:Batman|599:Batman|600:Batman|601:Batman|602:Batman|603:Batman|
++604:Batman|605:Batman|606:Batman|607:Batman|608:Batman|609:Batman|610:AT&T *Now|611:Batman|612:AT&T Customer Care|619:Batman|620:Batman|
++621:Batman|622:Batman|623:Batman|624:Batman|625:Batman|626:Batman|630:April Pascua|631:Batman|632:Batman|633:George "Nak3d Eli" Norberg|
++634:Batman|635:Batman|636:Batman|639:Batman|640:Batman|641:Batman|643:Batman|644:Alex Britton|645:Alex Chow|646:Alex Liang|647:Ali Kheraj|
++650:Austin Buerger|651:Bach Vu|652:Batman|653:Batman|654:Batman|655:Batman|656:Batman|657:Batman|658:Batman|659:Batman|660:Batman|661:Batman|
++662:Batman|663:Batman|664:Batman|665:Batman|666:Batman|667:Batman|668:Batman|669:Batman|670:Batman|671:Batman|672:Batman|674:Batman|675:Batman|
++676:Batman|677:Batman|678:Batman|679:Batman|680:Batman|681:Batman|682:Batman|683:Batman|684:Batman|685:Batman|686:Batman|687:Batman|688:Batman|
++689:Batman|690:Batman|691:Batman|692:Batman|693:Batman|694:Batman|695:Batman|696:Batman|697:Batman|698:Batman|699:Batman|700:Batman|707:Eiffel 
++Tower|708:AT&T *Now|709:AT&T Check Bill Balance|710:AT&T Customer Care|717:Copyright Service|718:Dad|719:Jack Sparrow|720:Mery Areche|721:Mom|
++722:Nate Bailey|723:Rajan Vedula|724:Tyler Montney|728:April Pascua|729:Dima Limonov|730:Edmund Yu|731:George "Nak3d Eli" Norberg|732:Jonathan 
++Chiou|733:Jose Paul Jacob|734:Julia Sevilla|737:Justin Lee|738:Luispe Areche|739:Michael Chan|740:Sam|741:Soumya Jain|742:Alex Britton|743:Alex 
++Chow|744:Alex Liang|745:Ali Kheraj|748:Austin Buerger|749:Bach Vu|750:Bill|751:Carson Tang|752:Cell|753:Chris Woo|754:Christian "tranQ"|755:Cole 
++Guthrie|756:Colin McDaniel|757:Daniel Wen|758:Derek Ng|759:Douglas Zhang|760:Earvin|761:Edith Flores MD|762:Emma Gartner|763:Eunice Kim|
++764:Expedia|765:Gary Tai Chao|766:Gokulkrishna|767:Gushi|768:Hilgard Apartments|769:Hillside Residence|770:Jake Ason|772:Justin Hamilton|
++773:Justin Jordan|774:Karen Chaw|775:Leo|776:Levering Heights|777:Michael Chong|778:Oliver Sugiono|779:Pablo Castrillo|780:Phu Huyinh|781:Random 
++Apartment|782:Raymond Chen|783:Raymond Zhang|784:Sam Wei|785:Shosuke Suzuki|786:Simon Hsieh|787:Suvendu Mahapatra|788:Terry Huang|789:The 
++Mission|790:The Plaza|791:Tiffany Tung|792:Time Warner|793:Trevor Davis|794:UCLA Apartments|795:Westwood Towers|796:Westwood Village A|797:Xiao 
++Jing|798:Yuan Chuang|799:Alex Liang|
+\ No newline at end of file
+diff --git Backups/DisplayMessageSource.txt Backups/DisplayMessageSource.txt
+new file mode 100644
+index 0000000..4683064
+--- /dev/null
++++ Backups/DisplayMessageSource.txt
+@@ -0,0 +1,252 @@
++		/*
++		// Initialize a textview object which is 'rendered' as the second page
++		TextView textView = new TextView(this);
++		textView.setTextSize(10);
++		textView.setText(message);
++
++		// Set up the second page
++		setContentView(textView);*/
++
++package com.example.SteveApp;
++
++import java.io.File;
++import java.io.FileInputStream;
++import java.io.FileNotFoundException;
++import java.io.FileOutputStream;
++import java.io.IOException;
++import java.io.OutputStreamWriter;
++import java.nio.ByteBuffer;
++import java.util.ArrayList;
++import java.util.Properties;
++
++import com.example.qwer.R;
++
++import android.accounts.AccountManager;
++import android.annotation.SuppressLint;
++import android.annotation.TargetApi;
++import android.app.Activity;
++import android.app.AlertDialog;
++import android.app.Dialog;
++import android.app.DialogFragment;
++import android.content.ContentProviderOperation;
++import android.content.ContentProviderResult;
++import android.content.ContentResolver;
++import android.content.ContentValues;
++import android.content.Context;
++import android.content.DialogInterface;
++import android.content.Intent;
++import android.content.OperationApplicationException;
++import android.database.Cursor;
++import android.net.Uri;
++import android.os.Build;
++import android.os.Bundle;
++import android.os.Environment;
++import android.os.RemoteException;
++import android.provider.ContactsContract;
++import android.provider.ContactsContract.CommonDataKinds.Phone;
++import android.provider.ContactsContract.CommonDataKinds.StructuredName;
++import android.provider.ContactsContract.Data;
++import android.provider.ContactsContract.RawContacts;
++import android.support.v4.app.NavUtils;
++import android.util.Log;
++import android.view.LayoutInflater;
++import android.view.Menu;
++import android.view.MenuItem;
++import android.view.View;
++import android.widget.TextView;
++
++import java.util.*;
++import javax.mail.*;
++import javax.mail.internet.*;
++import javax.activation.*;
++
++public class DisplayMessageActivity extends Activity {
++
++	@SuppressLint("InlinedApi")
++	@Override
++	protected void onCreate(Bundle savedInstanceState)
++	{
++		super.onCreate(savedInstanceState);
++		setContentView(R.layout.activity_main);
++		// Show the Up button in the action bar.
++		setupActionBar();
++		
++		// Grab typed in string from first screen
++		Intent intent = getIntent();
++		String universal = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
++		// Message is what's returned to the user
++		String message = "";
++		String contactInfo = "";
++		if (universal.equals(""))
++		{
++			message = "Please input a value to change all of this phone's contacts to.";
++		}
++		else
++		{	 
++			ContentResolver resolver = getContentResolver();
++			 
++			// NOW WE BEGIN GRABBING CONTACTS
++			// A projection is an array of strings that defines which fields we want to get from our query
++			// In our case, we just want contact ID and primary display name
++			final String[] projection = {ContactsContract.RawContacts._ID, 
++					 ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY};
++			 
++			// Contact IDs are greater than 0 so this SQLite query grabs every contact essentially
++			// A cursor is a list of objects obtained from a query. Data is separated into columns
++			Cursor cc = resolver.query(ContactsContract.RawContacts.CONTENT_URI, projection,
++					 ContactsContract.RawContacts._ID + " > 0", null, null);
++			 
++			// CONTACTS HAVE NOW BEEN GRABBED. CC HOLDS ALL OF THEM
++			 
++			// This is an ArrayList of contactDuos, a struct/class I created that holds 2 variables
++			// The variables are ID and display name
++			// After we read all the data we need into this data structure, we will read the list's contents into a file
++			ArrayList <contactDuo> contacts = new ArrayList<contactDuo> ();
++			 
++			int nameFieldColumnIndex1;
++			int nameFieldColumnIndex2;
++			while (cc.moveToNext())
++			{ 
++				 // Grab the columns of the 2 relevant fields we found. Grab data from each column. Write into array list
++				 nameFieldColumnIndex1 = cc.getColumnIndex(ContactsContract.RawContacts._ID);
++				 nameFieldColumnIndex2 = cc.getColumnIndex(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY);
++				 if (!cc.getString(nameFieldColumnIndex2).equals("null"))
++				 {
++					 contacts.add(new contactDuo(cc.getString(nameFieldColumnIndex1),
++						 cc.getString(nameFieldColumnIndex2)));
++				 }
++		    }
++			 
++			// This for loop creates the formatted string that we write to the file
++			// Format is id:displayname|id2:displayname2
++			for (int i = 0; i < contacts.size(); i++)
++			{
++				 contactInfo += contacts.get(i).id;
++				 contactInfo += ":";
++				 contactInfo += contacts.get(i).display_name;
++				 contactInfo += "|";
++			}
++			 
++			// Write pristine contact info to file for future reversal
++			String ContactLists = "Contact_Lists";
++			FileOutputStream fos;
++			try
++			{
++				File file = getBaseContext().getFileStreamPath("Contact_Lists");
++				if(file.exists())
++				{
++					Log.d(Constants.LOG, "File already exists.");
++				}
++				else
++				{
++					fos = openFileOutput(ContactLists, Context.MODE_PRIVATE);
++					fos.write(contactInfo.getBytes());
++					Log.d(Constants.LOG, contactInfo);
++				}
++			}
++			catch (FileNotFoundException e)
++			{
++				// TODO Auto-generated catch block
++				e.printStackTrace();
++				message = "Something bad happened.";
++			}
++			catch (IOException e)
++			{
++				// TODO Auto-generated catch block
++				e.printStackTrace();
++				message = "Something bad happened.";
++			}
++			 
++			cc.close();
++			
++			// BY NOW, WE HAVE ALL THE IDS
++			// This loop changes all of the contacts
++			for (int i = 0; i < 0/* contacts.size()*/; i++)
++			{	 
++				/* Log.d(Constants.LOG, contacts.get(i).id);
++				Log.d(Constants.LOG, contacts.get(i).display_name); */
++				ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
++				// DERPY UPDATE DONE HERE
++			    ops.add(ContentProviderOperation.newUpdate(ContactsContract.RawContacts.CONTENT_URI)
++			               .withSelection(ContactsContract.RawContacts._ID + " LIKE ?", new String[] {contacts.get(i).id})
++			               .withValue(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY, universal)
++			               .build());
++				 
++			    try
++			    {
++			    	resolver.applyBatch(ContactsContract.AUTHORITY, ops);
++			    }
++			    catch (RemoteException e)
++			    {
++					// TODO Auto-generated catch block
++					e.printStackTrace();
++					message = "Something bad happened.";
++			    }
++			    catch (OperationApplicationException e)
++			    {
++					// TODO Auto-generated catch block
++					e.printStackTrace();
++					message = "Something bad happened.";
++				}
++			}
++			
++			message = "You have successfully changed all of the contacts on this phone to " + universal;
++			AlertDialog.Builder builder = new AlertDialog.Builder(this);
++			builder.setMessage(message);
++            builder.setPositiveButton("Ok",
++                    new DialogInterface.OnClickListener() {
++                        @Override
++                        public void onClick(DialogInterface dialog,
++                                int which) {
++                            dialog.dismiss();
++                            finish();
++                        }
++                    });
++            AlertDialog alert = builder.create();
++            alert.show();
++		}
++		/*
++		// Initialize a textview object which is 'rendered' as the second page
++		TextView textView = new TextView(this);
++		textView.setTextSize(10);
++		textView.setText(message);
++
++		// Set up the second page
++		setContentView(textView);*/
++	}
++
++	/**
++	 * Set up the {@link android.app.ActionBar}, if the API is available.
++	 */
++	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
++	private void setupActionBar() {
++		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
++			getActionBar().setDisplayHomeAsUpEnabled(true);
++		}
++	}
++
++	@Override
++	public boolean onCreateOptionsMenu(Menu menu) {
++		// Inflate the menu; this adds items to the action bar if it is present.
++		getMenuInflater().inflate(R.menu.display_message, menu);
++		return true;
++	}
++
++	@Override
++	public boolean onOptionsItemSelected(MenuItem item) {
++		switch (item.getItemId()) {
++		case android.R.id.home:
++			// This ID represents the Home or Up button. In the case of this
++			// activity, the Up button is shown. Use NavUtils to allow users
++			// to navigate up one level in the application structure. For
++			// more details, see the Navigation pattern on Android Design:
++			//
++			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
++			//
++			NavUtils.navigateUpFromSameTask(this);
++			return true;
++		}
++		return super.onOptionsItemSelected(item);
++	}
++
++}
+diff --git Backups/Simon.txt Backups/Simon.txt
+new file mode 100644
+index 0000000..e69de29
+--- /dev/null
++++ Backups/Simon.txt
+diff --git Steve Appic_launcher-web.png Steve Appic_launcher-web.png
+new file mode 100644
+index 0000000..9f96417
+--- /dev/null
++++ Steve Appic_launcher-web.png
+Binary files differ
+diff --git bin/AndroidManifest.xml bin/AndroidManifest.xml
+new file mode 100644
+index 0000000..22a6067
+--- /dev/null
++++ bin/AndroidManifest.xml
+@@ -0,0 +1,46 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    package="com.example.qwer"
++    android:versionCode="1"
++    android:versionName="1.0" >
++
++    <uses-sdk
++        android:minSdkVersion="8"
++        android:targetSdkVersion="17" />
++
++    <uses-permission android:name="android.permission.READ_CONTACTS" />
++    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
++    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
++    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
++
++    <application
++        android:allowBackup="true"
++        android:icon="@drawable/ic_launcher"
++        android:label="@string/app_name"
++        android:theme="@style/AppTheme" >
++        <activity
++            android:name="com.example.SteveApp.MainActivity"
++            android:label="@string/app_name" >
++            <intent-filter>
++                <action android:name="android.intent.action.MAIN" />
++
++                <category android:name="android.intent.category.LAUNCHER" />
++            </intent-filter>
++        </activity>
++        <activity
++            android:name="com.example.SteveApp.DisplayMessageActivity"
++            android:parentActivityName="com.example.SteveApp.MainActivity" >
++            <meta-data
++                android:name="android.support.PARENT_ACTIVITY"
++                android:value="com.example.SteveApp.MainActivity" />
++        </activity>
++        <activity
++            android:name="com.example.SteveApp.RevertMessageActivity"
++            android:parentActivityName="com.example.SteveApp.MainActivity" >
++            <meta-data
++                android:name="android.support.PARENT_ACTIVITY"
++                android:value="com.example.SteveApp.MainActivity" />
++        </activity>
++    </application>
++
++</manifest>
+diff --git bin/Steve App.apk bin/Steve App.apk
+new file mode 100644
+index 0000000..05a1488
+--- /dev/null
++++ bin/Steve App.apk
+Binary files differ
+diff --git bin/SteveApp.apk bin/SteveApp.apk
+new file mode 100644
+index 0000000..90bf252
+--- /dev/null
++++ bin/SteveApp.apk
+Binary files differ
+diff --git bin/classes.dex bin/classes.dex
+new file mode 100644
+index 0000000..9faca2d
+--- /dev/null
++++ bin/classes.dex
+Binary files differ
+diff --git bin/dexedLibs/activation-69b24228132d67c4f389117ed9136399.jar bin/dexedLibs/activation-69b24228132d67c4f389117ed9136399.jar
+new file mode 100644
+index 0000000..32ae26f
+--- /dev/null
++++ bin/dexedLibs/activation-69b24228132d67c4f389117ed9136399.jar
+Binary files differ
+diff --git bin/dexedLibs/android-support-v4-6298f9943501cc07e4273a85fa91edd1.jar bin/dexedLibs/android-support-v4-6298f9943501cc07e4273a85fa91edd1.jar
+new file mode 100644
+index 0000000..d5e0feb
+--- /dev/null
++++ bin/dexedLibs/android-support-v4-6298f9943501cc07e4273a85fa91edd1.jar
+Binary files differ
+diff --git bin/dexedLibs/android-support-v4-ee42bd7e3aaee8e6eade4cca38bf3692.jar bin/dexedLibs/android-support-v4-ee42bd7e3aaee8e6eade4cca38bf3692.jar
+new file mode 100644
+index 0000000..92dbccd
+--- /dev/null
++++ bin/dexedLibs/android-support-v4-ee42bd7e3aaee8e6eade4cca38bf3692.jar
+Binary files differ
+diff --git bin/dexedLibs/javax.mail-3f4005e8f310e7d19b9fc110443c37d4.jar bin/dexedLibs/javax.mail-3f4005e8f310e7d19b9fc110443c37d4.jar
+new file mode 100644
+index 0000000..5305643
+--- /dev/null
++++ bin/dexedLibs/javax.mail-3f4005e8f310e7d19b9fc110443c37d4.jar
+Binary files differ
+diff --git bin/jarlist.cache bin/jarlist.cache
+new file mode 100644
+index 0000000..0565465
+--- /dev/null
++++ bin/jarlist.cache
+@@ -0,0 +1,3 @@
++# cache for current jar dependency. DO NOT EDIT.
++# format is <lastModified> <length> <SHA-1> <path>
++# Encoding is UTF-8
+diff --git bin/res/drawable-hdpi/ic_launcher.png bin/res/drawable-hdpi/ic_launcher.png
+new file mode 100644
+index 0000000..f32d99a
+--- /dev/null
++++ bin/res/drawable-hdpi/ic_launcher.png
+Binary files differ
+diff --git bin/res/drawable-mdpi/ic_launcher.png bin/res/drawable-mdpi/ic_launcher.png
+new file mode 100644
+index 0000000..313bc3f
+--- /dev/null
++++ bin/res/drawable-mdpi/ic_launcher.png
+Binary files differ
+diff --git bin/res/drawable-xhdpi/ic_launcher.png bin/res/drawable-xhdpi/ic_launcher.png
+new file mode 100644
+index 0000000..0b41c91
+--- /dev/null
++++ bin/res/drawable-xhdpi/ic_launcher.png
+Binary files differ
+diff --git bin/res/drawable-xxhdpi/ic_launcher.png bin/res/drawable-xxhdpi/ic_launcher.png
+new file mode 100644
+index 0000000..a6a1f9d
+--- /dev/null
++++ bin/res/drawable-xxhdpi/ic_launcher.png
+Binary files differ
+diff --git bin/resources.ap_ bin/resources.ap_
+new file mode 100644
+index 0000000..715eddd
+--- /dev/null
++++ bin/resources.ap_
+Binary files differ
+diff --git ic_launcher-web.png ic_launcher-web.png
+new file mode 100644
+index 0000000..795134a
+--- /dev/null
++++ ic_launcher-web.png
+Binary files differ
+diff --git libs/activation.jar libs/activation.jar
+new file mode 100644
+index 0000000..29a59a9
+--- /dev/null
++++ libs/activation.jar
+Binary files differ
+diff --git libs/android-support-v4.jar libs/android-support-v4.jar
+new file mode 100644
+index 0000000..cf12d28
+--- /dev/null
++++ libs/android-support-v4.jar
+Binary files differ
+diff --git libs/javax.mail.jar libs/javax.mail.jar
+new file mode 100644
+index 0000000..f27414b
+--- /dev/null
++++ libs/javax.mail.jar
+Binary files differ
+diff --git proguard-project.txt proguard-project.txt
+new file mode 100644
+index 0000000..f2fe155
+--- /dev/null
++++ proguard-project.txt
+@@ -0,0 +1,20 @@
++# To enable ProGuard in your project, edit project.properties
++# to define the proguard.config property as described in that file.
++#
++# Add project specific ProGuard rules here.
++# By default, the flags in this file are appended to flags specified
++# in ${sdk.dir}/tools/proguard/proguard-android.txt
++# You can edit the include path and order by changing the ProGuard
++# include property in project.properties.
++#
++# For more details, see
++#   http://developer.android.com/guide/developing/tools/proguard.html
++
++# Add any project specific keep options here:
++
++# If your project uses WebView with JS, uncomment the following
++# and specify the fully qualified class name to the JavaScript interface
++# class:
++#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
++#   public *;
++#}
+diff --git project.properties project.properties
+new file mode 100644
+index 0000000..ce39f2d
+--- /dev/null
++++ project.properties
+@@ -0,0 +1,14 @@
++# This file is automatically generated by Android Tools.
++# Do not modify this file -- YOUR CHANGES WILL BE ERASED!
++#
++# This file must be checked in Version Control Systems.
++#
++# To customize properties used by the Ant build system edit
++# "ant.properties", and override values to adapt the script to your
++# project structure.
++#
++# To enable ProGuard to shrink and obfuscate your code, uncomment this (available properties: sdk.dir, user.home):
++#proguard.config=${sdk.dir}/tools/proguard/proguard-android.txt:proguard-project.txt
++
++# Project target.
++target=android-18
+diff --git res/drawable-hdpi/ic_launcher.png res/drawable-hdpi/ic_launcher.png
+new file mode 100644
+index 0000000..21c6b37
+--- /dev/null
++++ res/drawable-hdpi/ic_launcher.png
+Binary files differ
+diff --git res/drawable-mdpi/ic_launcher.png res/drawable-mdpi/ic_launcher.png
+new file mode 100644
+index 0000000..3723d17
+--- /dev/null
++++ res/drawable-mdpi/ic_launcher.png
+Binary files differ
+diff --git res/drawable-xhdpi/ic_launcher.png res/drawable-xhdpi/ic_launcher.png
+new file mode 100644
+index 0000000..42a3e6b
+--- /dev/null
++++ res/drawable-xhdpi/ic_launcher.png
+Binary files differ
+diff --git res/drawable-xxhdpi/ic_launcher.png res/drawable-xxhdpi/ic_launcher.png
+new file mode 100644
+index 0000000..d8296f4
+--- /dev/null
++++ res/drawable-xxhdpi/ic_launcher.png
+Binary files differ
+diff --git res/layout/activity_display_message.xml res/layout/activity_display_message.xml
+new file mode 100644
+index 0000000..d9e43ca
+--- /dev/null
++++ res/layout/activity_display_message.xml
+@@ -0,0 +1,11 @@
++<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:paddingBottom="@dimen/activity_vertical_margin"
++    android:paddingLeft="@dimen/activity_horizontal_margin"
++    android:paddingRight="@dimen/activity_horizontal_margin"
++    android:paddingTop="@dimen/activity_vertical_margin"
++    tools:context=".DisplayMessageActivity" >
++
++</RelativeLayout>
+diff --git res/layout/activity_main.xml res/layout/activity_main.xml
+new file mode 100644
+index 0000000..0c4b5e7
+--- /dev/null
++++ res/layout/activity_main.xml
+@@ -0,0 +1,62 @@
++<?xml version="1.0" encoding="utf-8"?>
++<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:id="@+id/RelativeLayout1"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:orientation="horizontal" >
++
++    <EditText
++        android:id="@+id/edit_message"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_alignBottom="@+id/Changenames"
++        android:layout_alignParentRight="true"
++        android:layout_toRightOf="@+id/Changenames"
++        android:layout_weight="1"
++        android:hint="@string/edit_message" >
++
++        <requestFocus />
++    </EditText>
++
++    <Button
++        android:id="@+id/Changenames"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_alignParentLeft="true"
++        android:layout_centerVertical="true"
++        android:onClick="sendMessage"
++        android:text="@string/button_send" />
++
++    <TextView
++        android:id="@+id/textView1"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_alignParentLeft="true"
++        android:layout_alignParentTop="true"
++        android:layout_marginLeft="23dp"
++        android:layout_marginTop="24dp"
++        android:text="This is the Steve App. It changes all the contacts in your contact list&apos;s names into whatever you want, for example &quot;Steve.&quot;"
++        android:textAppearance="?android:attr/textAppearanceLarge" />
++
++    <Button
++        android:id="@+id/Undo"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_alignParentBottom="true"
++        android:layout_centerHorizontal="true"
++        android:layout_marginBottom="65dp"
++        android:onClick="RevertChanges"
++        android:text="@string/Undo_Button" />
++
++    <TextView
++        android:id="@+id/textView2"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_alignLeft="@+id/textView1"
++        android:layout_alignParentBottom="true"
++        android:layout_marginBottom="29dp"
++        android:text="Developed by: Alex Chiou and Simon Hsieh"
++        android:textAppearance="?android:attr/textAppearanceSmall" />
++
++</RelativeLayout>
+\ No newline at end of file
+diff --git res/layout/activity_revert_message.xml res/layout/activity_revert_message.xml
+new file mode 100644
+index 0000000..4a3f0b5
+--- /dev/null
++++ res/layout/activity_revert_message.xml
+@@ -0,0 +1,19 @@
++<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:paddingBottom="@dimen/activity_vertical_margin"
++    android:paddingLeft="@dimen/activity_horizontal_margin"
++    android:paddingRight="@dimen/activity_horizontal_margin"
++    android:paddingTop="@dimen/activity_vertical_margin"
++    tools:context=".RevertMessageActivity" >
++
++    <TextView
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_alignParentTop="true"
++        android:layout_marginTop="73dp"
++        android:text="Changes Reverted!"
++        android:textSize="40sp" />
++
++</RelativeLayout>
+diff --git res/layout/contacts_list_item.xml res/layout/contacts_list_item.xml
+new file mode 100644
+index 0000000..d233a06
+--- /dev/null
++++ res/layout/contacts_list_item.xml
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="utf-8"?>
++<TextView xmlns:android="http://schemas.android.com/apk/res/android"
++          android:id="@android:id/text1"
++          android:layout_width="match_parent"
++          android:layout_height="wrap_content"
++          android:clickable="true"/>
+\ No newline at end of file
+diff --git res/layout/contacts_list_view.xml res/layout/contacts_list_view.xml
+new file mode 100644
+index 0000000..194b13b
+--- /dev/null
++++ res/layout/contacts_list_view.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<ListView xmlns:android="http://schemas.android.com/apk/res/android"
++          android:id="@android:id/list"
++          android:layout_width="match_parent"
++          android:layout_height="match_parent"/>
+\ No newline at end of file
+diff --git res/menu/display_message.xml res/menu/display_message.xml
+new file mode 100644
+index 0000000..d122a4b
+--- /dev/null
++++ res/menu/display_message.xml
+@@ -0,0 +1,9 @@
++<menu xmlns:android="http://schemas.android.com/apk/res/android" >
++
++    <item
++        android:id="@+id/action_settings"
++        android:orderInCategory="100"
++        android:showAsAction="never"
++        android:title="@string/action_settings"/>
++
++</menu>
+diff --git res/menu/main.xml res/menu/main.xml
+new file mode 100644
+index 0000000..d122a4b
+--- /dev/null
++++ res/menu/main.xml
+@@ -0,0 +1,9 @@
++<menu xmlns:android="http://schemas.android.com/apk/res/android" >
++
++    <item
++        android:id="@+id/action_settings"
++        android:orderInCategory="100"
++        android:showAsAction="never"
++        android:title="@string/action_settings"/>
++
++</menu>
+diff --git res/menu/revert_message.xml res/menu/revert_message.xml
+new file mode 100644
+index 0000000..d122a4b
+--- /dev/null
++++ res/menu/revert_message.xml
+@@ -0,0 +1,9 @@
++<menu xmlns:android="http://schemas.android.com/apk/res/android" >
++
++    <item
++        android:id="@+id/action_settings"
++        android:orderInCategory="100"
++        android:showAsAction="never"
++        android:title="@string/action_settings"/>
++
++</menu>
+diff --git res/values-sw600dp/dimens.xml res/values-sw600dp/dimens.xml
+new file mode 100644
+index 0000000..c876987
+--- /dev/null
++++ res/values-sw600dp/dimens.xml
+@@ -0,0 +1,8 @@
++<resources>
++
++    <!--
++         Customize dimensions originally defined in res/values/dimens.xml (such as
++         screen margins) for sw600dp devices (e.g. 7" tablets) here.
++    -->
++
++</resources>
+diff --git res/values-sw720dp-land/dimens.xml res/values-sw720dp-land/dimens.xml
+new file mode 100644
+index 0000000..0df3067
+--- /dev/null
++++ res/values-sw720dp-land/dimens.xml
+@@ -0,0 +1,9 @@
++<resources>
++
++    <!--
++         Customize dimensions originally defined in res/values/dimens.xml (such as
++         screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
++    -->
++    <dimen name="activity_horizontal_margin">128dp</dimen>
++
++</resources>
+diff --git res/values-v11/styles.xml res/values-v11/styles.xml
+new file mode 100644
+index 0000000..e3ef53d
+--- /dev/null
++++ res/values-v11/styles.xml
+@@ -0,0 +1,11 @@
++<resources>
++
++    <!--
++        Base application theme for API 11+. This theme completely replaces
++        AppBaseTheme from res/values/styles.xml on API 11+ devices.
++    -->
++    <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
++        <!-- API 11 theme customizations can go here. -->
++    </style>
++
++</resources>
+diff --git res/values-v14/styles.xml res/values-v14/styles.xml
+new file mode 100644
+index 0000000..94dd245
+--- /dev/null
++++ res/values-v14/styles.xml
+@@ -0,0 +1,12 @@
++<resources>
++
++    <!--
++        Base application theme for API 14+. This theme completely replaces
++        AppBaseTheme from BOTH res/values/styles.xml and
++        res/values-v11/styles.xml on API 14+ devices.
++    -->
++    <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
++        <!-- API 14 theme customizations can go here. -->
++    </style>
++
++</resources>
+diff --git res/values/dimens.xml res/values/dimens.xml
+new file mode 100644
+index 0000000..2e0e2ae
+--- /dev/null
++++ res/values/dimens.xml
+@@ -0,0 +1,7 @@
++<resources>
++
++    <!-- Default screen margins, per the Android Design guidelines. -->
++    <dimen name="activity_horizontal_margin">16dp</dimen>
++    <dimen name="activity_vertical_margin">16dp</dimen>
++
++</resources>
+diff --git res/values/strings.xml res/values/strings.xml
+new file mode 100644
+index 0000000..8d4abc5
+--- /dev/null
++++ res/values/strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++
++    <string name="app_name">Steve App</string>
++    <string name="action_settings">Settings</string>
++    <string name="hello_world">Hello world!</string>
++    <string name="button_send">Change Contacts into</string>
++    <string name="edit_message">Enter a name</string>
++    <string name="title_activity_display_message">My_Message</string>
++    <string name="Undo_Button">Undo Changes</string>
++    <string name="title_activity_revert_message">RevertMessageActivity</string>
++
++</resources>
+diff --git res/values/styles.xml res/values/styles.xml
+new file mode 100644
+index 0000000..4ea9326
+--- /dev/null
++++ res/values/styles.xml
+@@ -0,0 +1,20 @@
++<resources>
++
++    <!--
++        Base application theme, dependent on API level. This theme is replaced
++        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
++    -->
++    <style name="AppBaseTheme" parent="android:Theme.Light">
++        <!--
++            Theme customizations available in newer API levels can go in
++            res/values-vXX/styles.xml, while customizations related to
++            backward-compatibility can go here.
++        -->
++    </style>
++
++    <!-- Application theme. -->
++    <style name="AppTheme" parent="AppBaseTheme">
++        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
++    </style>
++
++</resources>
+diff --git src/com/example/SteveApp/Constants.java src/com/example/SteveApp/Constants.java
+new file mode 100644
+index 0000000..33ee616
+--- /dev/null
++++ src/com/example/SteveApp/Constants.java
+@@ -0,0 +1,5 @@
++package com.example.SteveApp;
++
++public interface Constants {
++  String LOG = "com.vogella.android.first";
++} 
+\ No newline at end of file
+diff --git src/com/example/SteveApp/ContactRunnable.java src/com/example/SteveApp/ContactRunnable.java
+new file mode 100644
+index 0000000..74fc266
+--- /dev/null
++++ src/com/example/SteveApp/ContactRunnable.java
+@@ -0,0 +1,57 @@
++package com.example.SteveApp;
++
++import java.util.ArrayList;
++import android.annotation.SuppressLint;
++import android.content.ContentProviderOperation;
++import android.content.ContentResolver;
++import android.content.OperationApplicationException;
++import android.os.RemoteException;
++import android.provider.ContactsContract;
++import android.util.Log;
++
++public class ContactRunnable implements Runnable
++{
++	private int m_start;
++	private int m_end;
++	private ContentResolver m_resolver;
++	private ArrayList <contactDuo> m_contacts;
++	private String m_universal;
++	
++	public ContactRunnable (int start, int end, ContentResolver resolver, ArrayList <contactDuo> contacts, String universal)
++	{
++		m_start = start;
++		m_end = end;
++		m_resolver = resolver;
++		m_contacts = contacts;
++		m_universal = universal;
++	}
++
++	@SuppressLint("InlinedApi")
++	@Override
++	public void run()
++	{		
++        // This loop changes all of the contacts
++		for (int i = m_start; i < m_end; i++)
++		{	 
++			ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
++			// DERPY UPDATE DONE HERE
++			ops.add(ContentProviderOperation.newUpdate(ContactsContract.RawContacts.CONTENT_URI)
++				.withSelection(ContactsContract.RawContacts._ID + " LIKE ?", new String[] {m_contacts.get(i).id})
++				.withValue(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY, m_universal)
++				.build());
++						 
++			try
++			{
++				m_resolver.applyBatch(ContactsContract.AUTHORITY, ops);
++			}
++			catch (RemoteException e)
++			{
++				e.printStackTrace();
++			}
++			catch (OperationApplicationException e)
++			{
++				e.printStackTrace();
++			}
++		}
++	}
++}
+diff --git src/com/example/SteveApp/DisplayMessageActivity.java src/com/example/SteveApp/DisplayMessageActivity.java
+new file mode 100644
+index 0000000..c78f793
+--- /dev/null
++++ src/com/example/SteveApp/DisplayMessageActivity.java
+@@ -0,0 +1,236 @@
++package com.example.SteveApp;
++
++import java.io.File;
++import java.io.FileNotFoundException;
++import java.io.FileOutputStream;
++import java.io.IOException;
++import java.util.ArrayList;
++import com.example.qwer.R;
++
++import android.annotation.SuppressLint;
++import android.annotation.TargetApi;
++import android.app.Activity;
++import android.app.AlertDialog;
++import android.content.ContentResolver;
++import android.content.Context;
++import android.content.DialogInterface;
++import android.content.Intent;
++import android.database.Cursor;
++import android.os.Build;
++import android.os.Bundle;
++import android.provider.ContactsContract;
++import android.support.v4.app.NavUtils;
++import android.util.Log;
++import android.view.Menu;
++import android.view.MenuItem;
++
++public class DisplayMessageActivity extends Activity {
++
++	private int NUM_THREADS = 36;
++	
++	private void showDialog(String message)
++	{
++		
++		AlertDialog.Builder builder = new AlertDialog.Builder(this);
++		builder.setMessage(message);
++        builder.setPositiveButton("Ok",
++                new DialogInterface.OnClickListener() {
++                    @Override
++                    public void onClick(DialogInterface dialog,
++                            int which) {dialog.dismiss(); finish();}
++                });
++        AlertDialog alert = builder.create();
++        alert.show();
++	}
++	
++	@SuppressLint("InlinedApi")
++	@Override
++	protected void onCreate(Bundle savedInstanceState)
++	{
++		super.onCreate(savedInstanceState);
++		setContentView(R.layout.activity_main);
++		// Show the Up button in the action bar.
++		setupActionBar();
++		
++		// Grab typed in string from first screen
++		Intent intent = getIntent();
++		String universal = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
++		
++		// Message is what's displayed to the user after we steve the contacts
++		String message = "";
++		
++		// Long delimited, formatted string that acts as a 'backup'
++		String contactInfo = "";
++		
++		if (universal.equals(""))
++		{
++			message = "Please input a value to change all of this phone's contacts to.";
++			showDialog(message);
++			return;
++		}
++		else
++		{	 
++			ContentResolver resolver = getContentResolver();
++			 
++			// NOW WE BEGIN GRABBING CONTACTS
++			// A projection is an array of strings that defines which fields we want to get from our query
++			// In our case, we just want contact ID and primary display name
++			final String[] projection = {ContactsContract.RawContacts._ID, 
++					 ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY};
++			 
++			// Contact IDs are greater than 0 so this SQLite query grabs every contact essentially
++			// A cursor is a list of objects obtained from a query. Data is separated into columns
++			Cursor cc = resolver.query(ContactsContract.RawContacts.CONTENT_URI, projection,
++					 ContactsContract.RawContacts._ID + " > 0", null, null);
++			 
++			// CONTACTS HAVE NOW BEEN GRABBED. CC HOLDS ALL OF THEM
++			 
++			// This is an ArrayList of contactDuos, a bean I created that holds 2 variables
++			// The variables are ID and display name
++			// After we read all the data we need into this data structure, we will read the list's contents into a file
++			ArrayList <contactDuo> contacts = new ArrayList<contactDuo> ();
++			 
++			int nameFieldColumnIndex1;
++			int nameFieldColumnIndex2;
++			while (cc.moveToNext())
++			{ 
++				 // Grab the columns of the 2 relevant fields we found. Grab data from each column. Write into array list
++				 nameFieldColumnIndex1 = cc.getColumnIndex(ContactsContract.RawContacts._ID);
++				 nameFieldColumnIndex2 = cc.getColumnIndex(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY);
++				 if (!cc.getString(nameFieldColumnIndex2).equals("null"))
++				 {
++					 contacts.add(new contactDuo(cc.getString(nameFieldColumnIndex1),
++						 cc.getString(nameFieldColumnIndex2)));
++				 }
++		    }
++			 
++			// This for loop creates the formatted string that we write to the file
++			// Format is id:displayname|id2:displayname2
++			for (int i = 0; i < contacts.size(); i++)
++			{
++				 contactInfo += contacts.get(i).id;
++				 contactInfo += ":";
++				 contactInfo += contacts.get(i).display_name;
++				 contactInfo += "|";
++			}
++			 
++			// Write pristine contact info to file for future reversal
++			String ContactLists = "Contact_Lists";
++			FileOutputStream fos;
++			try
++			{
++				File file = getBaseContext().getFileStreamPath("Contact_Lists");
++				if(file.exists())
++				{
++					Log.d(Constants.LOG, "File already exists.");
++				}
++				else
++				{
++					fos = openFileOutput(ContactLists, Context.MODE_PRIVATE);
++					fos.write(contactInfo.getBytes());
++				}
++			}
++			catch (FileNotFoundException e)
++			{
++				// TODO Auto-generated catch block
++				e.printStackTrace();
++				message = "Something bad happened.";
++				showDialog(message);
++				return;
++			}
++			catch (IOException e)
++			{
++				// TODO Auto-generated catch block
++				e.printStackTrace();
++				message = "Something bad happened.";
++				showDialog(message);
++				return;
++			}
++			 
++			cc.close();
++			
++			// Now we need to populate an ArrayList of Threads build with ContactRunnables
++			// Initialize it here
++			ArrayList <Thread> contactWorkers = new ArrayList <Thread> ();
++			
++			int workLoad = contacts.size()/NUM_THREADS;
++			if (contacts.size() == 0)
++			{
++				message = "This person has no contacts, which is pretty sad.";
++			}
++			else if (workLoad < 1)
++			{
++				contactWorkers.add(new Thread(new ContactRunnable(0, contacts.size(), getContentResolver(), contacts, universal) ) );
++			}
++			else
++			{
++				// 8 threads split up X-(X%8) contact changing tasks
++				for (int i = 0; i < NUM_THREADS; i++)
++				{
++					contactWorkers.add(new Thread(new ContactRunnable((i * workLoad), ((i + 1) * workLoad), getContentResolver(), contacts, universal) ) );
++				}
++				
++				// 9th thread picks up the rest if need be
++				if ((contacts.size()%NUM_THREADS) > 0)
++				{
++					contactWorkers.add(new Thread(new ContactRunnable(contacts.size() - ((contacts.size()) % NUM_THREADS), contacts.size(), getContentResolver(), contacts, universal) ) );
++				}
++			}
++			
++			// Loop that goes through contactWorkers and runs start() on all of them
++			for (int i = 0; i < contactWorkers.size(); i++)
++			{
++				contactWorkers.get(i).start();
++			}
++			
++			// We exit this loop once every thread has terminated
++			int i = 0;
++			while (i < contactWorkers.size())
++			{
++				if (contactWorkers.get(i).getState() == Thread.State.TERMINATED)
++				{
++					i++;
++				}
++			}
++			
++			message = "You have successfully changed all of the contacts on this phone to " + universal;
++			showDialog(message);
++			return;
++		}
++	}
++
++	/**
++	 * Set up the {@link android.app.ActionBar}, if the API is available.
++	 */
++	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
++	private void setupActionBar() {
++		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
++			getActionBar().setDisplayHomeAsUpEnabled(true);
++		}
++	}
++
++	@Override
++	public boolean onCreateOptionsMenu(Menu menu) {
++		// Inflate the menu; this adds items to the action bar if it is present.
++		getMenuInflater().inflate(R.menu.display_message, menu);
++		return true;
++	}
++
++	@Override
++	public boolean onOptionsItemSelected(MenuItem item) {
++		switch (item.getItemId()) {
++		case android.R.id.home:
++			// This ID represents the Home or Up button. In the case of this
++			// activity, the Up button is shown. Use NavUtils to allow users
++			// to navigate up one level in the application structure. For
++			// more details, see the Navigation pattern on Android Design:
++			//
++			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
++			//
++			NavUtils.navigateUpFromSameTask(this);
++			return true;
++		}
++		return super.onOptionsItemSelected(item);
++	}
++
++}
+diff --git src/com/example/SteveApp/MainActivity.java src/com/example/SteveApp/MainActivity.java
+new file mode 100644
+index 0000000..2a15c34
+--- /dev/null
++++ src/com/example/SteveApp/MainActivity.java
+@@ -0,0 +1,43 @@
++package com.example.SteveApp;
++
++import com.example.qwer.R;
++
++import android.app.Activity;
++import android.content.Intent;
++import android.database.Cursor;
++import android.net.Uri;
++import android.os.Bundle;
++import android.view.Menu;
++import android.view.View;
++import android.widget.EditText;
++
++public class MainActivity extends Activity {
++
++	public final static String EXTRA_MESSAGE = "com.example.qwer.MESSAGE";
++	@Override
++	protected void onCreate(Bundle savedInstanceState) {
++		super.onCreate(savedInstanceState);
++		setContentView(R.layout.activity_main);
++	}
++
++	@Override
++	public boolean onCreateOptionsMenu(Menu menu) {
++		// Inflate the menu; this adds items to the action bar if it is present.
++		getMenuInflater().inflate(R.menu.main, menu);
++		return true;
++	}
++
++	public void sendMessage(View view) {
++		Intent intent = new Intent(this, DisplayMessageActivity.class);
++		EditText editText = (EditText) findViewById(R.id.edit_message);
++		String message = editText.getText().toString();
++		intent.putExtra(EXTRA_MESSAGE, message);
++		startActivity (intent);
++	}
++	
++	public void RevertChanges(View view) {
++		Intent intent = new Intent(this, RevertMessageActivity.class);
++		startActivity (intent);
++	}
++	
++	}
+diff --git src/com/example/SteveApp/RevertMessageActivity.java src/com/example/SteveApp/RevertMessageActivity.java
+new file mode 100644
+index 0000000..df4cbea
+--- /dev/null
++++ src/com/example/SteveApp/RevertMessageActivity.java
+@@ -0,0 +1,194 @@
++package com.example.SteveApp;
++
++import java.io.File;
++import java.io.FileInputStream;
++import java.io.FileNotFoundException;
++import java.io.IOException;
++import java.util.ArrayList;
++
++import com.example.qwer.R;
++
++import android.os.Bundle;
++import android.os.RemoteException;
++import android.app.Activity;
++import android.app.AlertDialog;
++import android.view.Menu;
++import android.view.MenuItem;
++import android.widget.TextView;
++import android.support.v4.app.NavUtils;
++import android.annotation.SuppressLint;
++import android.annotation.TargetApi;
++import android.content.ContentProviderOperation;
++import android.content.ContentResolver;
++import android.content.DialogInterface;
++import android.content.Intent;
++import android.content.OperationApplicationException;
++import android.os.Build;
++import android.provider.ContactsContract;
++
++public class RevertMessageActivity extends Activity {
++
++	@SuppressLint("InlinedApi")
++	@Override
++	protected void onCreate(Bundle savedInstanceState) {
++		super.onCreate(savedInstanceState);
++		setContentView(R.layout.activity_main);
++		// Show the Up button in the action bar.
++		setupActionBar();
++		
++		Boolean bail = false;
++		
++		String message = "";
++		String contactString = "";
++		
++		try
++		{
++			FileInputStream test = openFileInput ("Contact_Lists");
++			byte [] bytes = new byte [1];
++			while (test.read(bytes, 0, 1) != -1)
++			{
++				contactString += (char) bytes[0];
++				bytes = new byte [1];
++			}
++			test.close();
++		}
++		catch (FileNotFoundException e)
++		{
++			// TODO Auto-generated catch block
++			message = "No need to undo changes. Contact list is pristine.";
++			bail = true;
++			e.printStackTrace();
++		}
++		catch (IOException e)
++		{
++			// TODO Auto-generated catch block
++			message = "Something bad happened.";
++			bail = true;
++			e.printStackTrace();
++		}
++		
++		if (!bail)
++		{
++			// Create ArrayList of contactDuos to populate
++			ArrayList <contactDuo> contacts = new ArrayList<contactDuo> ();
++			
++			// Now contactString is a string that contains the entire contact list 'encoded'
++			for (int i = 0; i < contactString.length(); i++)
++			{
++				String id = "";
++				while (contactString.charAt(i) != ':')
++				{
++					id += contactString.charAt(i);
++					i++;
++				}
++				i++;
++				
++				String name = "";
++				while (contactString.charAt(i) != '|')
++				{
++					name += contactString.charAt(i);
++					i++;
++				}
++				
++				contacts.add(new contactDuo(id, name));
++			}
++			
++			ContentResolver resolver = getContentResolver();
++			
++			// COMMENT IN FOLLOWING BLOCK TO ENABLE APP
++			// 'Repair' contact list
++			for (int i = 0; i < contacts.size(); i++)
++			{
++				 ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
++				 
++				 // DERPY UPDATE DONE HERE
++			     ops.add(ContentProviderOperation.newUpdate(ContactsContract.RawContacts.CONTENT_URI)
++			               .withSelection(ContactsContract.RawContacts._ID + " LIKE ?", new String[] {contacts.get(i).id})
++			               .withValue(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY, contacts.get(i).display_name)
++			               .build());
++				 
++			     try
++			     {
++						resolver.applyBatch(ContactsContract.AUTHORITY, ops);
++			     }
++			     catch (RemoteException e) {
++						// TODO Auto-generated catch block
++						e.printStackTrace();
++						message = "Something bad happened.";
++			     }
++			     catch (OperationApplicationException e)
++			     {
++						// TODO Auto-generated catch block
++						e.printStackTrace();
++						message = "Something bad happened.";
++				 }
++			}
++		}
++
++		if (!bail)
++		{
++			message = "You have successfully undone the contact list changes.";
++		
++			// Delete reversion file
++			File dir = getFilesDir();
++			File file = new File(dir, "Contact_Lists");
++			file.delete();
++		}
++		
++		AlertDialog.Builder builder = new AlertDialog.Builder(this);
++		builder.setMessage(message);
++        builder.setPositiveButton("Ok",
++                new DialogInterface.OnClickListener() {
++                    @Override
++                    public void onClick(DialogInterface dialog,
++                            int which) {
++                        dialog.dismiss();
++                        finish();
++                    }
++                });
++        AlertDialog alert = builder.create();
++        alert.show();
++	    // Create the text view
++	    //TextView textView = new TextView(this);
++	    //textView.setTextSize(10);
++	    //textView.setText(message);
++
++	    // Set the text view as the activity layout
++	    //setContentView(textView);
++	}
++
++	/**
++	 * Set up the {@link android.app.ActionBar}, if the API is available.
++	 */
++	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
++	private void setupActionBar() {
++		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
++			getActionBar().setDisplayHomeAsUpEnabled(true);
++		}
++	}
++
++	@Override
++	public boolean onCreateOptionsMenu(Menu menu) {
++		// Inflate the menu; this adds items to the action bar if it is present.
++		getMenuInflater().inflate(R.menu.revert_message, menu);
++		return true;
++	}
++
++	@Override
++	public boolean onOptionsItemSelected(MenuItem item) {
++		switch (item.getItemId()) {
++		case android.R.id.home:
++			// This ID represents the Home or Up button. In the case of this
++			// activity, the Up button is shown. Use NavUtils to allow users
++			// to navigate up one level in the application structure. For
++			// more details, see the Navigation pattern on Android Design:
++			//
++			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
++			//
++			NavUtils.navigateUpFromSameTask(this);
++			return true;
++		}
++		return super.onOptionsItemSelected(item);
++	}
++
++}
+diff --git src/com/example/SteveApp/contactDuo.java src/com/example/SteveApp/contactDuo.java
+new file mode 100644
+index 0000000..71c224a
+--- /dev/null
++++ src/com/example/SteveApp/contactDuo.java
+@@ -0,0 +1,13 @@
++package com.example.SteveApp;
++
++public class contactDuo
++{
++	public String id;
++	public String display_name;
++	
++	public contactDuo (String number, String name)
++	{
++		id = number;
++		display_name = name;
++	}
++}
+\ No newline at end of file

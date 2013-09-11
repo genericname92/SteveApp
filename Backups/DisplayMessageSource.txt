@@ -1,0 +1,252 @@
+		/*
+		// Initialize a textview object which is 'rendered' as the second page
+		TextView textView = new TextView(this);
+		textView.setTextSize(10);
+		textView.setText(message);
+
+		// Set up the second page
+		setContentView(textView);*/
+
+package com.example.SteveApp;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Properties;
+
+import com.example.qwer.R;
+
+import android.accounts.AccountManager;
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.ContentProviderOperation;
+import android.content.ContentProviderResult;
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.OperationApplicationException;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.RemoteException;
+import android.provider.ContactsContract;
+import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.provider.ContactsContract.CommonDataKinds.StructuredName;
+import android.provider.ContactsContract.Data;
+import android.provider.ContactsContract.RawContacts;
+import android.support.v4.app.NavUtils;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
+import java.util.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
+
+public class DisplayMessageActivity extends Activity {
+
+	@SuppressLint("InlinedApi")
+	@Override
+	protected void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		// Show the Up button in the action bar.
+		setupActionBar();
+		
+		// Grab typed in string from first screen
+		Intent intent = getIntent();
+		String universal = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+		// Message is what's returned to the user
+		String message = "";
+		String contactInfo = "";
+		if (universal.equals(""))
+		{
+			message = "Please input a value to change all of this phone's contacts to.";
+		}
+		else
+		{	 
+			ContentResolver resolver = getContentResolver();
+			 
+			// NOW WE BEGIN GRABBING CONTACTS
+			// A projection is an array of strings that defines which fields we want to get from our query
+			// In our case, we just want contact ID and primary display name
+			final String[] projection = {ContactsContract.RawContacts._ID, 
+					 ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY};
+			 
+			// Contact IDs are greater than 0 so this SQLite query grabs every contact essentially
+			// A cursor is a list of objects obtained from a query. Data is separated into columns
+			Cursor cc = resolver.query(ContactsContract.RawContacts.CONTENT_URI, projection,
+					 ContactsContract.RawContacts._ID + " > 0", null, null);
+			 
+			// CONTACTS HAVE NOW BEEN GRABBED. CC HOLDS ALL OF THEM
+			 
+			// This is an ArrayList of contactDuos, a struct/class I created that holds 2 variables
+			// The variables are ID and display name
+			// After we read all the data we need into this data structure, we will read the list's contents into a file
+			ArrayList <contactDuo> contacts = new ArrayList<contactDuo> ();
+			 
+			int nameFieldColumnIndex1;
+			int nameFieldColumnIndex2;
+			while (cc.moveToNext())
+			{ 
+				 // Grab the columns of the 2 relevant fields we found. Grab data from each column. Write into array list
+				 nameFieldColumnIndex1 = cc.getColumnIndex(ContactsContract.RawContacts._ID);
+				 nameFieldColumnIndex2 = cc.getColumnIndex(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY);
+				 if (!cc.getString(nameFieldColumnIndex2).equals("null"))
+				 {
+					 contacts.add(new contactDuo(cc.getString(nameFieldColumnIndex1),
+						 cc.getString(nameFieldColumnIndex2)));
+				 }
+		    }
+			 
+			// This for loop creates the formatted string that we write to the file
+			// Format is id:displayname|id2:displayname2
+			for (int i = 0; i < contacts.size(); i++)
+			{
+				 contactInfo += contacts.get(i).id;
+				 contactInfo += ":";
+				 contactInfo += contacts.get(i).display_name;
+				 contactInfo += "|";
+			}
+			 
+			// Write pristine contact info to file for future reversal
+			String ContactLists = "Contact_Lists";
+			FileOutputStream fos;
+			try
+			{
+				File file = getBaseContext().getFileStreamPath("Contact_Lists");
+				if(file.exists())
+				{
+					Log.d(Constants.LOG, "File already exists.");
+				}
+				else
+				{
+					fos = openFileOutput(ContactLists, Context.MODE_PRIVATE);
+					fos.write(contactInfo.getBytes());
+					Log.d(Constants.LOG, contactInfo);
+				}
+			}
+			catch (FileNotFoundException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				message = "Something bad happened.";
+			}
+			catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				message = "Something bad happened.";
+			}
+			 
+			cc.close();
+			
+			// BY NOW, WE HAVE ALL THE IDS
+			// This loop changes all of the contacts
+			for (int i = 0; i < 0/* contacts.size()*/; i++)
+			{	 
+				/* Log.d(Constants.LOG, contacts.get(i).id);
+				Log.d(Constants.LOG, contacts.get(i).display_name); */
+				ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
+				// DERPY UPDATE DONE HERE
+			    ops.add(ContentProviderOperation.newUpdate(ContactsContract.RawContacts.CONTENT_URI)
+			               .withSelection(ContactsContract.RawContacts._ID + " LIKE ?", new String[] {contacts.get(i).id})
+			               .withValue(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY, universal)
+			               .build());
+				 
+			    try
+			    {
+			    	resolver.applyBatch(ContactsContract.AUTHORITY, ops);
+			    }
+			    catch (RemoteException e)
+			    {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					message = "Something bad happened.";
+			    }
+			    catch (OperationApplicationException e)
+			    {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					message = "Something bad happened.";
+				}
+			}
+			
+			message = "You have successfully changed all of the contacts on this phone to " + universal;
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage(message);
+            builder.setPositiveButton("Ok",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog,
+                                int which) {
+                            dialog.dismiss();
+                            finish();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+		}
+		/*
+		// Initialize a textview object which is 'rendered' as the second page
+		TextView textView = new TextView(this);
+		textView.setTextSize(10);
+		textView.setText(message);
+
+		// Set up the second page
+		setContentView(textView);*/
+	}
+
+	/**
+	 * Set up the {@link android.app.ActionBar}, if the API is available.
+	 */
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	private void setupActionBar() {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.display_message, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			// This ID represents the Home or Up button. In the case of this
+			// activity, the Up button is shown. Use NavUtils to allow users
+			// to navigate up one level in the application structure. For
+			// more details, see the Navigation pattern on Android Design:
+			//
+			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
+			//
+			NavUtils.navigateUpFromSameTask(this);
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+}

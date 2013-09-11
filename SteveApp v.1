@@ -62,7 +62,7 @@ index 0000000..a479be9
 @@ -0,0 +1,48 @@
 +<?xml version="1.0" encoding="utf-8"?>
 +<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-+    package="com.example.qwer"
++    package="com.example.SteveApp"
 +    android:versionCode="1"
 +    android:versionName="1.0" >
 +
@@ -95,10 +95,10 @@ index 0000000..a479be9
 +            android:parentActivityName="com.example.SteveApp.MainActivity" >
 +            <meta-data
 +                android:name="android.support.PARENT_ACTIVITY"
-+                android:value="com.example.qwer.MainActivity" />
++                android:value="com.example.SteveApp.MainActivity" />
 +        </activity>
 +        <activity
-+            android:name="com.example.qwer.RevertMessageActivity"
++            android:name="com.example.SteveApp.RevertMessageActivity"
 +            android:label="@string/title_activity_revert_message"
 +            android:parentActivityName="com.example.SteveApp.MainActivity" >
 +            <meta-data
@@ -167,7 +167,7 @@ index 0000000..4683064
 +import java.util.ArrayList;
 +import java.util.Properties;
 +
-+import com.example.qwer.R;
++import com.example.SteveApp.R;
 +
 +import android.accounts.AccountManager;
 +import android.annotation.SuppressLint;
@@ -417,7 +417,7 @@ index 0000000..22a6067
 @@ -0,0 +1,46 @@
 +<?xml version="1.0" encoding="utf-8"?>
 +<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-+    package="com.example.qwer"
++    package="com.example.SteveApp"
 +    android:versionCode="1"
 +    android:versionName="1.0" >
 +
@@ -1027,7 +1027,7 @@ index 0000000..c78f793
 +import java.io.FileOutputStream;
 +import java.io.IOException;
 +import java.util.ArrayList;
-+import com.example.qwer.R;
++import com.example.SteveApp.R;
 +
 +import android.annotation.SuppressLint;
 +import android.annotation.TargetApi;
@@ -1264,7 +1264,7 @@ index 0000000..2a15c34
 @@ -0,0 +1,43 @@
 +package com.example.SteveApp;
 +
-+import com.example.qwer.R;
++import com.example.SteveApp.R;
 +
 +import android.app.Activity;
 +import android.content.Intent;
@@ -1277,7 +1277,7 @@ index 0000000..2a15c34
 +
 +public class MainActivity extends Activity {
 +
-+	public final static String EXTRA_MESSAGE = "com.example.qwer.MESSAGE";
++	public final static String EXTRA_MESSAGE = "com.example.SteveApp.MESSAGE";
 +	@Override
 +	protected void onCreate(Bundle savedInstanceState) {
 +		super.onCreate(savedInstanceState);
@@ -1319,7 +1319,7 @@ index 0000000..df4cbea
 +import java.io.IOException;
 +import java.util.ArrayList;
 +
-+import com.example.qwer.R;
++import com.example.SteveApp.R;
 +
 +import android.os.Bundle;
 +import android.os.RemoteException;

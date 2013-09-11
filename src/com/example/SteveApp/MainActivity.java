@@ -2,7 +2,7 @@
 
 package com.example.SteveApp;
 
-import com.example.qwer.R;
+import com.example.SteveApp.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,7 +15,7 @@ import android.widget.EditText;
 
 public class MainActivity extends Activity {
 
-	public final static String EXTRA_MESSAGE = "com.example.qwer.MESSAGE";
+	public final static String EXTRA_MESSAGE = "com.example.SteveApp.MESSAGE";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

@@ -5,9 +5,11 @@ package com.example.SteveApp;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import com.example.qwer.R;
+import com.example.SteveApp.R;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -20,6 +22,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.ContactsContract;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
@@ -105,7 +108,8 @@ public class DisplayMessageActivity extends Activity {
 						 cc.getString(nameFieldColumnIndex2)));
 				 }
 		    }
-			 
+			cc.close();
+			
 			// This for loop creates the formatted string that we write to the file
 			// Format is id:displayname|id2:displayname2
 			for (int i = 0; i < contacts.size(); i++)
@@ -149,7 +153,17 @@ public class DisplayMessageActivity extends Activity {
 				return;
 			}
 			 
-			cc.close();
+			/*if (isExternalStorageWritable()) {
+		        FileWriter fWriter;
+		        try{
+		             fWriter = new FileWriter("/sdcard/myfile.txt");
+		             fWriter.write(contactInfo);
+		             fWriter.flush();
+		             fWriter.close();
+		         }catch(Exception e){
+		                  e.printStackTrace();
+		         }
+			}*/
 			
 			// Now we need to populate an ArrayList of Threads build with ContactRunnables
 			// Initialize it here
@@ -234,5 +248,18 @@ public class DisplayMessageActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	/* Checks if external storage is available for read and write */
+	public boolean isExternalStorageWritable() {
+	    String state = Environment.getExternalStorageState();
+	    if (Environment.MEDIA_MOUNTED.equals(state)) {
+	        return true;
+	    }
+	    return false;
+	}
 
 }
+
+
+
+

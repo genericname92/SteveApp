@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.example.qwer.R;
+import com.example.SteveApp.R;
 
 import android.os.Bundle;
 import android.os.RemoteException;
@@ -95,7 +95,6 @@ public class RevertMessageActivity extends Activity {
 			
 			ContentResolver resolver = getContentResolver();
 			
-			// COMMENT IN FOLLOWING BLOCK TO ENABLE APP
 			// 'Repair' contact list
 			for (int i = 0; i < contacts.size(); i++)
 			{
@@ -148,13 +147,6 @@ public class RevertMessageActivity extends Activity {
                 });
         AlertDialog alert = builder.create();
         alert.show();
-	    // Create the text view
-	    //TextView textView = new TextView(this);
-	    //textView.setTextSize(10);
-	    //textView.setText(message);
-
-	    // Set the text view as the activity layout
-	    //setContentView(textView);
 	}
 
 	/**

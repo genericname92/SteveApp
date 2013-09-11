@@ -19,7 +19,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.example.qwer.R;
+import com.example.SteveApp.R;
 
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;

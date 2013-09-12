@@ -1,5 +1,3 @@
-// I love cookies
-
 package com.SteveApp;
 
 import java.io.File;
@@ -38,14 +36,14 @@ public class DisplayMessageActivity extends Activity {
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage(message);
-        builder.setPositiveButton("Ok",
+		builder.setPositiveButton("Ok",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog,
                             int which) {dialog.dismiss(); finish();}
                 });
-        AlertDialog alert = builder.create();
-        alert.show();
+		AlertDialog alert = builder.create();
+		alert.show();
 	}
 	
 	@SuppressLint("InlinedApi")
@@ -56,7 +54,7 @@ public class DisplayMessageActivity extends Activity {
 		// Check if SD card is mounted
 		if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED))
 		{
-			File Dir = new File(android.os.Environment.getExternalStorageDirectory(), "SteveApp");
+		    File Dir = new File(android.os.Environment.getExternalStorageDirectory(), "SteveApp");
 		    if (!Dir.exists()) // if directory is not here
 		    {
 		        Dir.mkdirs(); // make directory
@@ -118,7 +116,7 @@ public class DisplayMessageActivity extends Activity {
 					 contacts.add(new contactDuo(cc.getString(nameFieldColumnIndex1),
 						 cc.getString(nameFieldColumnIndex2)));
 				 }
-		    }
+			}
 			cc.close();
 			
 			// This for loop creates the formatted string that we write to the file
@@ -135,23 +133,23 @@ public class DisplayMessageActivity extends Activity {
 			// Try external first
 			if (isExternalStorageWritable())
 			{
-		        File file = new File(Environment.getExternalStorageDirectory().getPath() + "/SteveApp/", "backup_contacts.txt" );
-		        if (!file.exists())
-		        {
-			        try
-			    	{
-			        	FileWriter fWriter = new FileWriter(Environment.getExternalStorageDirectory().getPath() + "/SteveApp/backup_contacts.txt");
-			        	fWriter.write(contactInfo);
-			        	fWriter.close();
-			        }
-			        catch(Exception e)
-			        {
-			            e.printStackTrace();
-			            message = "Something bad happened.";
-			            showDialog(message);
-			            return;
-			        }
-		        }
+        		        File file = new File(Environment.getExternalStorageDirectory().getPath() + "/SteveApp/", "backup_contacts.txt" );
+        		        if (!file.exists())
+        		        {
+        			        try
+        			    	{
+        			        	FileWriter fWriter = new FileWriter(Environment.getExternalStorageDirectory().getPath() + "/SteveApp/backup_contacts.txt");
+        			        	fWriter.write(contactInfo);
+        			        	fWriter.close();
+        			        }
+        			        catch (Exception e)
+        			        {
+        			            	e.printStackTrace();
+        			            	message = "Something bad happened.";
+        			            	showDialog(message);
+        			            	return;
+        			        }
+        		        }
 			}
 			// Now internal
 			else
@@ -191,6 +189,8 @@ public class DisplayMessageActivity extends Activity {
 			if (contacts.size() == 0)
 			{
 				message = "This person has no contacts, which is pretty sad.";
+				showDialog(message);
+				return;
 			}
 			else if (workLoad < 1)
 			{
@@ -198,13 +198,13 @@ public class DisplayMessageActivity extends Activity {
 			}
 			else
 			{
-				// 8 threads split up X-(X%8) contact changing tasks
+				// NUM_THREAD threads split up X-(X%8) contact changing tasks
 				for (int i = 0; i < NUM_THREADS; i++)
 				{
 					contactWorkers.add(new Thread(new ContactRunnable((i * workLoad), ((i + 1) * workLoad), getContentResolver(), contacts, universal) ) );
 				}
 				
-				// 9th thread picks up the rest if need be
+				// NUM_THREADS+1 thread picks up the rest if need be
 				if ((contacts.size()%NUM_THREADS) > 0)
 				{
 					contactWorkers.add(new Thread(new ContactRunnable(contacts.size() - ((contacts.size()) % NUM_THREADS), contacts.size(), getContentResolver(), contacts, universal) ) );

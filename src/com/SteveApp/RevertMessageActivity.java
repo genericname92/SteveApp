@@ -45,14 +45,14 @@ public class RevertMessageActivity extends Activity
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage(message);
-        builder.setPositiveButton("Ok",
+		builder.setPositiveButton("Ok",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog,
                             int which) {dialog.dismiss(); finish();}
                 });
-        AlertDialog alert = builder.create();
-        alert.show();
+		AlertDialog alert = builder.create();
+		alert.show();
 	}
 	
 	@SuppressWarnings("resource")

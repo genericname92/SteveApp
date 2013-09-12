@@ -1,4 +1,4 @@
-package com.example.SteveApp;
+package com.SteveApp;
 
 public class contactDuo
 {

@@ -62,7 +62,7 @@ index 0000000..a479be9
 @@ -0,0 +1,48 @@
 +<?xml version="1.0" encoding="utf-8"?>
 +<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-+    package="com.example.SteveApp"
++    package="com.SteveApp"
 +    android:versionCode="1"
 +    android:versionName="1.0" >
 +
@@ -81,7 +81,7 @@ index 0000000..a479be9
 +        android:label="@string/app_name"
 +        android:theme="@style/AppTheme" >
 +        <activity
-+            android:name="com.example.SteveApp.MainActivity"
++            android:name="com.SteveApp.MainActivity"
 +            android:label="@string/app_name" >
 +            <intent-filter>
 +                <action android:name="android.intent.action.MAIN" />
@@ -90,20 +90,20 @@ index 0000000..a479be9
 +            </intent-filter>
 +        </activity>
 +        <activity
-+            android:name="com.example.SteveApp.DisplayMessageActivity"
++            android:name="com.SteveApp.DisplayMessageActivity"
 +            android:label="@string/title_activity_display_message"
-+            android:parentActivityName="com.example.SteveApp.MainActivity" >
++            android:parentActivityName="com.SteveApp.MainActivity" >
 +            <meta-data
 +                android:name="android.support.PARENT_ACTIVITY"
-+                android:value="com.example.SteveApp.MainActivity" />
++                android:value="com.SteveApp.MainActivity" />
 +        </activity>
 +        <activity
-+            android:name="com.example.SteveApp.RevertMessageActivity"
++            android:name="com.SteveApp.RevertMessageActivity"
 +            android:label="@string/title_activity_revert_message"
-+            android:parentActivityName="com.example.SteveApp.MainActivity" >
++            android:parentActivityName="com.SteveApp.MainActivity" >
 +            <meta-data
 +                android:name="android.support.PARENT_ACTIVITY"
-+                android:value="com.example.SteveApp.MainActivity" />
++                android:value="com.SteveApp.MainActivity" />
 +        </activity>
 +    </application>
 +
@@ -155,7 +155,7 @@ index 0000000..4683064
 +		// Set up the second page
 +		setContentView(textView);*/
 +
-+package com.example.SteveApp;
++package com.SteveApp;
 +
 +import java.io.File;
 +import java.io.FileInputStream;
@@ -167,7 +167,7 @@ index 0000000..4683064
 +import java.util.ArrayList;
 +import java.util.Properties;
 +
-+import com.example.SteveApp.R;
++import com.SteveApp.R;
 +
 +import android.accounts.AccountManager;
 +import android.annotation.SuppressLint;
@@ -417,7 +417,7 @@ index 0000000..22a6067
 @@ -0,0 +1,46 @@
 +<?xml version="1.0" encoding="utf-8"?>
 +<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-+    package="com.example.SteveApp"
++    package="com.SteveApp"
 +    android:versionCode="1"
 +    android:versionName="1.0" >
 +
@@ -436,7 +436,7 @@ index 0000000..22a6067
 +        android:label="@string/app_name"
 +        android:theme="@style/AppTheme" >
 +        <activity
-+            android:name="com.example.SteveApp.MainActivity"
++            android:name="com.SteveApp.MainActivity"
 +            android:label="@string/app_name" >
 +            <intent-filter>
 +                <action android:name="android.intent.action.MAIN" />
@@ -445,18 +445,18 @@ index 0000000..22a6067
 +            </intent-filter>
 +        </activity>
 +        <activity
-+            android:name="com.example.SteveApp.DisplayMessageActivity"
-+            android:parentActivityName="com.example.SteveApp.MainActivity" >
++            android:name="com.SteveApp.DisplayMessageActivity"
++            android:parentActivityName="com.SteveApp.MainActivity" >
 +            <meta-data
 +                android:name="android.support.PARENT_ACTIVITY"
-+                android:value="com.example.SteveApp.MainActivity" />
++                android:value="com.SteveApp.MainActivity" />
 +        </activity>
 +        <activity
-+            android:name="com.example.SteveApp.RevertMessageActivity"
-+            android:parentActivityName="com.example.SteveApp.MainActivity" >
++            android:name="com.SteveApp.RevertMessageActivity"
++            android:parentActivityName="com.SteveApp.MainActivity" >
 +            <meta-data
 +                android:name="android.support.PARENT_ACTIVITY"
-+                android:value="com.example.SteveApp.MainActivity" />
++                android:value="com.SteveApp.MainActivity" />
 +        </activity>
 +    </application>
 +
@@ -945,7 +945,7 @@ index 0000000..33ee616
 --- /dev/null
 +++ src/com/example/SteveApp/Constants.java
 @@ -0,0 +1,5 @@
-+package com.example.SteveApp;
++package com.SteveApp;
 +
 +public interface Constants {
 +  String LOG = "com.vogella.android.first";
@@ -957,7 +957,7 @@ index 0000000..74fc266
 --- /dev/null
 +++ src/com/example/SteveApp/ContactRunnable.java
 @@ -0,0 +1,57 @@
-+package com.example.SteveApp;
++package com.SteveApp;
 +
 +import java.util.ArrayList;
 +import android.annotation.SuppressLint;
@@ -1020,14 +1020,14 @@ index 0000000..c78f793
 --- /dev/null
 +++ src/com/example/SteveApp/DisplayMessageActivity.java
 @@ -0,0 +1,236 @@
-+package com.example.SteveApp;
++package com.SteveApp;
 +
 +import java.io.File;
 +import java.io.FileNotFoundException;
 +import java.io.FileOutputStream;
 +import java.io.IOException;
 +import java.util.ArrayList;
-+import com.example.SteveApp.R;
++import com.SteveApp.R;
 +
 +import android.annotation.SuppressLint;
 +import android.annotation.TargetApi;
@@ -1262,9 +1262,9 @@ index 0000000..2a15c34
 --- /dev/null
 +++ src/com/example/SteveApp/MainActivity.java
 @@ -0,0 +1,43 @@
-+package com.example.SteveApp;
++package com.SteveApp;
 +
-+import com.example.SteveApp.R;
++import com.SteveApp.R;
 +
 +import android.app.Activity;
 +import android.content.Intent;
@@ -1277,7 +1277,7 @@ index 0000000..2a15c34
 +
 +public class MainActivity extends Activity {
 +
-+	public final static String EXTRA_MESSAGE = "com.example.SteveApp.MESSAGE";
++	public final static String EXTRA_MESSAGE = "com.SteveApp.MESSAGE";
 +	@Override
 +	protected void onCreate(Bundle savedInstanceState) {
 +		super.onCreate(savedInstanceState);
@@ -1311,7 +1311,7 @@ index 0000000..df4cbea
 --- /dev/null
 +++ src/com/example/SteveApp/RevertMessageActivity.java
 @@ -0,0 +1,194 @@
-+package com.example.SteveApp;
++package com.SteveApp;
 +
 +import java.io.File;
 +import java.io.FileInputStream;
@@ -1319,7 +1319,7 @@ index 0000000..df4cbea
 +import java.io.IOException;
 +import java.util.ArrayList;
 +
-+import com.example.SteveApp.R;
++import com.SteveApp.R;
 +
 +import android.os.Bundle;
 +import android.os.RemoteException;
@@ -1511,7 +1511,7 @@ index 0000000..71c224a
 --- /dev/null
 +++ src/com/example/SteveApp/contactDuo.java
 @@ -0,0 +1,13 @@
-+package com.example.SteveApp;
++package com.SteveApp;
 +
 +public class contactDuo
 +{

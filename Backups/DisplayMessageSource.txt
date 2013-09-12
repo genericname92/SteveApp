@@ -7,7 +7,7 @@
 		// Set up the second page
 		setContentView(textView);*/
 
-package com.example.SteveApp;
+package com.SteveApp;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,7 +19,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.example.SteveApp.R;
+import com.SteveApp.R;
 
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;

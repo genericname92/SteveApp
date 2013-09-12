@@ -1,4 +1,4 @@
-package com.example.SteveApp;
+package com.SteveApp;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,7 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.example.SteveApp.R;
+import com.SteveApp.R;
 
 import android.os.Bundle;
 import android.os.Environment;

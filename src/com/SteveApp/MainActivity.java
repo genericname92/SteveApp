@@ -1,8 +1,8 @@
 // Candy is good
 
-package com.example.SteveApp;
+package com.SteveApp;
 
-import com.example.SteveApp.R;
+import com.SteveApp.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,7 +15,7 @@ import android.widget.EditText;
 
 public class MainActivity extends Activity {
 
-	public final static String EXTRA_MESSAGE = "com.example.SteveApp.MESSAGE";
+	public final static String EXTRA_MESSAGE = "com.SteveApp.MESSAGE";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

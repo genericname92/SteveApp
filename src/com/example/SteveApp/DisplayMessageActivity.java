@@ -121,49 +121,52 @@ public class DisplayMessageActivity extends Activity {
 			}
 			 
 			// Write pristine contact info to file for future reversal
-			String ContactLists = "Contact_Lists";
-			FileOutputStream fos;
-			try
-			{
-				File file = getBaseContext().getFileStreamPath("Contact_Lists");
-				if(file.exists())
-				{
-					Log.d(Constants.LOG, "File already exists.");
-				}
-				else
-				{
-					fos = openFileOutput(ContactLists, Context.MODE_PRIVATE);
-					fos.write(contactInfo.getBytes());
-				}
-			}
-			catch (FileNotFoundException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				message = "Something bad happened.";
-				showDialog(message);
-				return;
-			}
-			catch (IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				message = "Something bad happened.";
-				showDialog(message);
-				return;
-			}
-			 
-			/*if (isExternalStorageWritable()) {
+			if (isExternalStorageWritable()) {
 		        FileWriter fWriter;
-		        try{
+		        try
+		    	{
 		             fWriter = new FileWriter("/sdcard/myfile.txt");
 		             fWriter.write(contactInfo);
 		             fWriter.flush();
 		             fWriter.close();
-		         }catch(Exception e){
-		                  e.printStackTrace();
-		         }
-			}*/
+		        }
+		        catch(Exception e)
+		        {
+		             e.printStackTrace();
+		        }
+			}
+			else
+			{
+				String ContactLists = "Contact_Lists";
+				FileOutputStream fos;
+				try
+				{
+					File file = getBaseContext().getFileStreamPath("Contact_Lists");
+					if(file.exists())
+					{
+						Log.d(Constants.LOG, "File already exists.");
+					}
+					else
+					{
+						fos = openFileOutput(ContactLists, Context.MODE_PRIVATE);
+						fos.write(contactInfo.getBytes());
+					}
+				}
+				catch (FileNotFoundException e)
+				{
+					e.printStackTrace();
+					message = "Something bad happened.";
+					showDialog(message);
+					return;
+				}
+				catch (IOException e)
+				{
+					e.printStackTrace();
+					message = "Something bad happened.";
+					showDialog(message);
+					return;
+				}
+			}
 			
 			// Now we need to populate an ArrayList of Threads build with ContactRunnables
 			// Initialize it here

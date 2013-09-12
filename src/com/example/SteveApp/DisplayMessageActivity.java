@@ -30,7 +30,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class DisplayMessageActivity extends Activity {
-
+	
 	private int NUM_THREADS = 36;
 	
 	private void showDialog(String message)
@@ -52,6 +52,17 @@ public class DisplayMessageActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
+		// Create folder in external storage for us to store things in
+		// Check if SD card is mounted
+		if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED))
+		{
+			File Dir = new File(android.os.Environment.getExternalStorageDirectory(), "SteveApp");
+		    if (!Dir.exists()) // if directory is not here
+		    {
+		        Dir.mkdirs(); // make directory
+		    }
+		}
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		// Show the Up button in the action bar.
@@ -61,7 +72,7 @@ public class DisplayMessageActivity extends Activity {
 		Intent intent = getIntent();
 		String universal = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 		
-		// Message is what's displayed to the user after we steve the contacts
+		// Message is what's displayed to the user after we change the contacts
 		String message = "";
 		
 		// Long delimited, formatted string that acts as a 'backup'
@@ -121,20 +132,28 @@ public class DisplayMessageActivity extends Activity {
 			}
 			 
 			// Write pristine contact info to file for future reversal
-			if (isExternalStorageWritable()) {
-		        FileWriter fWriter;
-		        try
-		    	{
-		             fWriter = new FileWriter("/sdcard/myfile.txt");
-		             fWriter.write(contactInfo);
-		             fWriter.flush();
-		             fWriter.close();
-		        }
-		        catch(Exception e)
+			// Try external first
+			if (isExternalStorageWritable())
+			{
+		        File file = new File(Environment.getExternalStorageDirectory().getPath() + "/SteveApp/", "backup_contacts.txt" );
+		        if (!file.exists())
 		        {
-		             e.printStackTrace();
+			        try
+			    	{
+			        	FileWriter fWriter = new FileWriter(Environment.getExternalStorageDirectory().getPath() + "/SteveApp/backup_contacts.txt");
+			        	fWriter.write(contactInfo);
+			        	fWriter.close();
+			        }
+			        catch(Exception e)
+			        {
+			            e.printStackTrace();
+			            message = "Something bad happened.";
+			            showDialog(message);
+			            return;
+			        }
 		        }
 			}
+			// Now internal
 			else
 			{
 				String ContactLists = "Contact_Lists";
@@ -142,11 +161,7 @@ public class DisplayMessageActivity extends Activity {
 				try
 				{
 					File file = getBaseContext().getFileStreamPath("Contact_Lists");
-					if(file.exists())
-					{
-						Log.d(Constants.LOG, "File already exists.");
-					}
-					else
+					if(!file.exists())
 					{
 						fos = openFileOutput(ContactLists, Context.MODE_PRIVATE);
 						fos.write(contactInfo.getBytes());
@@ -260,7 +275,6 @@ public class DisplayMessageActivity extends Activity {
 	    }
 	    return false;
 	}
-
 }
 
 

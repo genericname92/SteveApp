@@ -30,16 +30,6 @@ import android.provider.ContactsContract;
 
 public class RevertMessageActivity extends Activity
 {
-	/* Checks if external storage is available for read and write */
-	public boolean isExternalStorageWritable()
-	{
-	    String state = Environment.getExternalStorageState();
-	    if (Environment.MEDIA_MOUNTED.equals(state)) {
-	        return true;
-	    }
-	    return false;
-	}
-	
 	private void showDialog(String message)
 	{
 		
@@ -70,7 +60,7 @@ public class RevertMessageActivity extends Activity
 		Boolean done = false;
 		
 		// Try to read from external storage first
-		if (isExternalStorageWritable())
+		if (Util.isExternalStorageWritable())
 		{
 			File extFile = new File(Environment.getExternalStorageDirectory().getPath() + "/SteveApp/", "backup_contacts.txt" );
 			// If file exists in external storage, grab its contents

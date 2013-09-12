@@ -131,7 +131,7 @@ public class DisplayMessageActivity extends Activity {
 			 
 			// Write pristine contact info to file for future reversal
 			// Try external first
-			if (isExternalStorageWritable())
+			if (Util.isExternalStorageWritable())
 			{
         		        File file = new File(Environment.getExternalStorageDirectory().getPath() + "/SteveApp/", "backup_contacts.txt" );
         		        if (!file.exists())
@@ -265,15 +265,6 @@ public class DisplayMessageActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-	
-	/* Checks if external storage is available for read and write */
-	public boolean isExternalStorageWritable() {
-	    String state = Environment.getExternalStorageState();
-	    if (Environment.MEDIA_MOUNTED.equals(state)) {
-	        return true;
-	    }
-	    return false;
 	}
 }
 

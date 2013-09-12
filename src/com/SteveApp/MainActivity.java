@@ -1,5 +1,3 @@
-// Candy is good
-
 package com.SteveApp;
 
 import com.SteveApp.R;
@@ -13,8 +11,8 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 
-public class MainActivity extends Activity {
-
+public class MainActivity extends Activity
+{
 	public final static String EXTRA_MESSAGE = "com.SteveApp.MESSAGE";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +38,5 @@ public class MainActivity extends Activity {
 	public void RevertChanges(View view) {
 		Intent intent = new Intent(this, RevertMessageActivity.class);
 		startActivity (intent);
-	}
-	
-	}
+	}	
+}

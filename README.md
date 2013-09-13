@@ -7,7 +7,7 @@ TODO LIST:
 - Fix main page. The 'Developed by' blurb is off center, and the top paragraph leans to the right.
 
 - A progress bar. Even with multi-threading, getting the app to faster than 15 seconds seems to be impossible.
-The app goes back black as well while performing tasks, which may be scary to the user and cause panic.
+The app makes the screen go black as well while performing tasks, which may be scary to the user and cause panic.
 A progress bar indicating either percentage completion or x/y contacts changed will let the user know that the 
 app hasn't crashed; it's still working and just a little slow.
 

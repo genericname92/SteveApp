@@ -1,7 +1,7 @@
 Contacts Hacker
 ===============
 
-This project is an Android app that changes all of the ccontacts on a phone to an inputted string.
+This project is an Android app that changes all of the contacts on a phone to an inputted string.
 
 TODO LIST:
 - Fix main page. The 'Developed by' blurb is off center, and the top paragraph leans to the right.

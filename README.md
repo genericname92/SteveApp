@@ -11,7 +11,8 @@ The app goes back black as well while performing tasks, which may be scary to th
 A progress bar indicating either percentage completion or x/y contacts changed will let the user know that the 
 app hasn't crashed; it's still working and just a little slow.
 
-- Pure Facebook contacts are not affected by the app.
+- Pure Facebook contacts are not affected by the app. We obviously need to fix this, since it's a part of our 
+mission objective.
 
 - Add more text input fields. The main page has a lot of empty space so why not. If a user enters in more than one 
 string, the app will choose randomly among them when it is changing contacts. Empty strings will be ignored.

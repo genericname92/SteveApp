@@ -19,22 +19,12 @@
         <requestFocus />
     </EditText>
 
-    <Button
-        android:id="@+id/Changenames"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:onClick="sendMessage"
-        android:text="@string/button_send" />
-
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="23dp"
         android:layout_marginTop="24dp"
         android:gravity="top"
         android:text="This is the Contacts Changer App. It changes all the contacts in your contact list&apos;s names into whatever you want, for example &quot;Batman.&quot;"
@@ -44,19 +34,30 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="29dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="28dp"
         android:gravity="center|end"
         android:text="Developed by: Alex Chiou and Simon Hsieh"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <Button
+        android:id="@+id/Changenames"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="30dp"
+        android:onClick="sendMessage"
+        android:text="@string/button_send" />
+
+    <Button
         android:id="@+id/Undo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textView2"
+        android:layout_below="@+id/edit_message"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
         android:gravity="bottom|center_horizontal|end"
         android:onClick="RevertChanges"
         android:text="@string/Undo_Button" />

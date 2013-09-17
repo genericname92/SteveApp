@@ -133,23 +133,23 @@ public class DisplayMessageActivity extends Activity {
 			// Try external first
 			if (Util.isExternalStorageWritable())
 			{
-        		        File file = new File(Environment.getExternalStorageDirectory().getPath() + "/SteveApp/", "backup_contacts.txt" );
-        		        if (!file.exists())
-        		        {
-        			        try
-        			    	{
-        			        	FileWriter fWriter = new FileWriter(Environment.getExternalStorageDirectory().getPath() + "/SteveApp/backup_contacts.txt");
-        			        	fWriter.write(contactInfo);
-        			        	fWriter.close();
-        			        }
-        			        catch (Exception e)
-        			        {
-        			            	e.printStackTrace();
-        			            	message = "Something bad happened.";
-        			            	showDialog(message);
-        			            	return;
-        			        }
-        		        }
+				File file = new File(Environment.getExternalStorageDirectory().getPath() + "/SteveApp/", "backup_contacts.txt" );
+        		if (!file.exists())
+        		{
+        			try
+        			{
+        				FileWriter fWriter = new FileWriter(Environment.getExternalStorageDirectory().getPath() + "/SteveApp/backup_contacts.txt");
+        			    fWriter.write(contactInfo);
+        			    fWriter.close();
+        			}
+        			catch (Exception e)
+        			{
+        			    e.printStackTrace();
+        			    message = "Something bad happened.";
+        			    showDialog(message);
+        			    return;
+        			}
+        		}
 			}
 			// Now internal
 			else

@@ -12,12 +12,16 @@ import com.SteveApp.R;
 
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.os.RemoteException;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -30,6 +34,12 @@ import android.provider.ContactsContract;
 
 public class RevertMessageActivity extends Activity
 {
+	private ProgressBar pb;
+    private TextView tv;
+    private int prg = 0;
+    private ArrayList <contactDuo> contacts;
+    private ContentResolver resolver;
+	
 	private void showDialog(String message)
 	{
 		
@@ -51,7 +61,10 @@ public class RevertMessageActivity extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_display_message);
+        pb = (ProgressBar) findViewById(R.id.pbId);
+        tv = (TextView) findViewById(R.id.tvId);
+        
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
@@ -90,7 +103,7 @@ public class RevertMessageActivity extends Activity
 				}
 			}
 		}
-		
+		// Now try to read from internal storage
 		if (!done)
 		{
 			try
@@ -126,7 +139,7 @@ public class RevertMessageActivity extends Activity
 		}
 
 		// Create ArrayList of contactDuos to populate
-		ArrayList <contactDuo> contacts = new ArrayList<contactDuo> ();
+		contacts = new ArrayList<contactDuo> ();
 		
 		// Now contactString is a string that contains the entire contact list 'encoded'
 		for (int i = 0; i < contactString.length(); i++)
@@ -148,43 +161,67 @@ public class RevertMessageActivity extends Activity
 			
 			contacts.add(new contactDuo(id, name));
 		}
+		pb.setMax(contacts.size());
 			
-		ContentResolver resolver = getContentResolver();
-		
-		// 'Repair' contact list
-		for (int i = 0; i < contacts.size(); i++)
-		{
-			ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
-				 
-			// DERPY UPDATE DONE HERE
-			ops.add(ContentProviderOperation.newUpdate(ContactsContract.RawContacts.CONTENT_URI)
-			          .withSelection(ContactsContract.RawContacts._ID + " LIKE ?", new String[] {contacts.get(i).id})
-			          .withValue(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY, contacts.get(i).display_name)
-			          .build());
-				 
-			try
-			{
-				resolver.applyBatch(ContactsContract.AUTHORITY, ops);
-			}
-			catch (RemoteException e)
-			{
-				e.printStackTrace();
-				message = "Something bad happened.";
-				showDialog(message);
-				return;
-			}
-			catch (OperationApplicationException e)
-			{
-				e.printStackTrace();
-				message = "Something bad happened.";
-				showDialog(message);
-				return;
-			}
-		}
-
-		message = "You have successfully undone the contact list changes.";
-		showDialog(message);
+		resolver = getContentResolver();
+		new Thread(myThread).start();
 	}
+	
+	private Runnable myThread = new Runnable()
+	{ 
+		@SuppressLint("InlinedApi")
+		@Override
+	    public void run() 
+	    {
+			// 'Repair' contact list
+	    	for (int i = 0; i < contacts.size(); i++)
+	    	{
+	    		ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
+	    				 
+	    		// DERPY UPDATE DONE HERE
+	    		ops.add(ContentProviderOperation.newUpdate(ContactsContract.RawContacts.CONTENT_URI)
+	    				.withSelection(ContactsContract.RawContacts._ID + " LIKE ?", new String[] {contacts.get(i).id})
+	    			    .withValue(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY, contacts.get(i).display_name)
+	    			    .build());
+	    				 
+	    		try
+	    		{
+	    			resolver.applyBatch(ContactsContract.AUTHORITY, ops);
+	    			hnd.sendMessage(hnd.obtainMessage());
+	    		}
+	    		catch (RemoteException e)
+	    		{
+	    			e.printStackTrace();
+	    		}
+	    		catch (OperationApplicationException e)
+	    		{
+	    			e.printStackTrace();
+	    		}
+	    	}
+
+	        runOnUiThread(new Runnable()
+	        { 
+	        	public void run()
+	        	{
+	        		tv.setText("Contacts list repaired.");
+	            }
+	        });          
+	    }
+	    
+	    @SuppressLint("HandlerLeak")
+		Handler hnd = new Handler()
+	    {    
+	        @Override
+	        public void handleMessage(Message msg) 
+	        {
+	            prg++;
+	            pb.setProgress(prg);
+
+	            String perc = String.valueOf(prg).toString();
+	            tv.setText(perc + "/" + String.valueOf(contacts.size()) + " contacts reverted.");
+	        }
+	    };
+	};
 
 	/**
 	 * Set up the {@link android.app.ActionBar}, if the API is available.

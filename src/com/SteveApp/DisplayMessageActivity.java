@@ -13,27 +13,39 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
+import android.os.RemoteException;
 import android.provider.ContactsContract;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-public class DisplayMessageActivity extends Activity {
-	
-	private int NUM_THREADS = 36;
+@SuppressLint("HandlerLeak")
+public class DisplayMessageActivity extends Activity
+{
+	private ProgressBar pb;
+    private TextView tv;
+    private int prg = 0;
+    private ArrayList <contactDuo> contacts;
+    private ContentResolver resolver;
+    private String universal;
 	
 	private void showDialog(String message)
 	{
-		
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage(message);
 		builder.setPositiveButton("Ok",
@@ -45,193 +57,191 @@ public class DisplayMessageActivity extends Activity {
 		AlertDialog alert = builder.create();
 		alert.show();
 	}
-	
-	@SuppressLint("InlinedApi")
+
+    @SuppressLint("InlinedApi")
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		// Create folder in external storage for us to store things in
-		// Check if SD card is mounted
-		if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED))
-		{
-		    File Dir = new File(android.os.Environment.getExternalStorageDirectory(), "SteveApp");
-		    if (!Dir.exists()) // if directory is not here
-		    {
-		        Dir.mkdirs(); // make directory
-		    }
+    public void onCreate(Bundle savedInstanceState)
+    {
+    	super.onCreate(savedInstanceState);
+    	// Grab typed in string from first screen
+     	Intent intent = getIntent();
+     	universal = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+     	String message = "";
+     	if (universal.equals(""))
+     	{
+     		message = "Please input a value to change all of this phone's contacts to.";
+     		showDialog(message);
+     		return;
+     	}
+        
+        setContentView(R.layout.activity_display_message);
+
+        pb = (ProgressBar) findViewById(R.id.pbId);
+        tv = (TextView) findViewById(R.id.tvId);
+        
+    	// Create folder in external storage for us to store things in
+     	// Check if SD card is mounted
+     	if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED))
+     	{
+     		File Dir = new File(android.os.Environment.getExternalStorageDirectory(), "SteveApp");
+     		if (!Dir.exists()) // if directory is not here
+     		{
+     			Dir.mkdirs(); // make directory
+     		}
+     	}
+     		
+     	// Long delimited, formatted string that acts as a 'backup'
+     	String contactInfo = "";
+     		
+		resolver = getContentResolver();
+
+		// NOW WE BEGIN GRABBING CONTACTS
+		// A projection is an array of strings that defines which fields we want
+		// to get from our query
+		// In our case, we just want contact ID and primary display name
+		final String[] projection = { ContactsContract.RawContacts._ID,
+				ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY };
+
+		// Contact IDs are greater than 0 so this SQLite query grabs every
+		// contact essentially
+		// A cursor is a list of objects obtained from a query. Data is
+		// separated into columns
+		Cursor cc = resolver.query(ContactsContract.RawContacts.CONTENT_URI,
+				projection, ContactsContract.RawContacts._ID + " > 0", null,
+				null);
+
+		// CONTACTS HAVE NOW BEEN GRABBED. CC HOLDS ALL OF THEM
+
+		// This is an ArrayList of contactDuos, a bean I created that holds 2
+		// variables
+		// The variables are ID and display name
+		// After we read all the data we need into this data structure, we will
+		// read the list's contents into a file
+		contacts = new ArrayList<contactDuo>();
+
+		int nameFieldColumnIndex1;
+		int nameFieldColumnIndex2;
+		while (cc.moveToNext()) {
+			// Grab the columns of the 2 relevant fields we found. Grab data
+			// from each column. Write into array list
+			nameFieldColumnIndex1 = cc
+					.getColumnIndex(ContactsContract.RawContacts._ID);
+			nameFieldColumnIndex2 = cc
+					.getColumnIndex(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY);
+			if (!cc.getString(nameFieldColumnIndex2).equals("null")) {
+				contacts.add(new contactDuo(
+						cc.getString(nameFieldColumnIndex1), cc
+								.getString(nameFieldColumnIndex2)));
+			}
 		}
-		
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		// Show the Up button in the action bar.
-		setupActionBar();
-		
-		// Grab typed in string from first screen
-		Intent intent = getIntent();
-		String universal = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-		
-		// Message is what's displayed to the user after we change the contacts
-		String message = "";
-		
-		// Long delimited, formatted string that acts as a 'backup'
-		String contactInfo = "";
-		
-		if (universal.equals(""))
-		{
-			message = "Please input a value to change all of this phone's contacts to.";
-			showDialog(message);
-			return;
+		cc.close();
+
+		// This for loop creates the formatted string that we write to the file
+		// Format is id:displayname|id2:displayname2
+		for (int i = 0; i < contacts.size(); i++) {
+			contactInfo += contacts.get(i).id;
+			contactInfo += ":";
+			contactInfo += contacts.get(i).display_name;
+			contactInfo += "|";
 		}
-		else
-		{	 
-			ContentResolver resolver = getContentResolver();
-			 
-			// NOW WE BEGIN GRABBING CONTACTS
-			// A projection is an array of strings that defines which fields we want to get from our query
-			// In our case, we just want contact ID and primary display name
-			final String[] projection = {ContactsContract.RawContacts._ID, 
-					 ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY};
-			 
-			// Contact IDs are greater than 0 so this SQLite query grabs every contact essentially
-			// A cursor is a list of objects obtained from a query. Data is separated into columns
-			Cursor cc = resolver.query(ContactsContract.RawContacts.CONTENT_URI, projection,
-					 ContactsContract.RawContacts._ID + " > 0", null, null);
-			 
-			// CONTACTS HAVE NOW BEEN GRABBED. CC HOLDS ALL OF THEM
-			 
-			// This is an ArrayList of contactDuos, a bean I created that holds 2 variables
-			// The variables are ID and display name
-			// After we read all the data we need into this data structure, we will read the list's contents into a file
-			ArrayList <contactDuo> contacts = new ArrayList<contactDuo> ();
-			 
-			int nameFieldColumnIndex1;
-			int nameFieldColumnIndex2;
-			while (cc.moveToNext())
-			{ 
-				 // Grab the columns of the 2 relevant fields we found. Grab data from each column. Write into array list
-				 nameFieldColumnIndex1 = cc.getColumnIndex(ContactsContract.RawContacts._ID);
-				 nameFieldColumnIndex2 = cc.getColumnIndex(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY);
-				 if (!cc.getString(nameFieldColumnIndex2).equals("null"))
-				 {
-					 contacts.add(new contactDuo(cc.getString(nameFieldColumnIndex1),
-						 cc.getString(nameFieldColumnIndex2)));
-				 }
-			}
-			cc.close();
-			
-			// This for loop creates the formatted string that we write to the file
-			// Format is id:displayname|id2:displayname2
-			for (int i = 0; i < contacts.size(); i++)
-			{
-				 contactInfo += contacts.get(i).id;
-				 contactInfo += ":";
-				 contactInfo += contacts.get(i).display_name;
-				 contactInfo += "|";
-			}
-			 
-			// Write pristine contact info to file for future reversal
-			// Try external first
-			if (Util.isExternalStorageWritable())
-			{
-				File file = new File(Environment.getExternalStorageDirectory().getPath() + "/SteveApp/", "backup_contacts.txt" );
-        		if (!file.exists())
-        		{
-        			try
-        			{
-        				FileWriter fWriter = new FileWriter(Environment.getExternalStorageDirectory().getPath() + "/SteveApp/backup_contacts.txt");
-        			    fWriter.write(contactInfo);
-        			    fWriter.close();
-        			}
-        			catch (Exception e)
-        			{
-        			    e.printStackTrace();
-        			    message = "Something bad happened.";
-        			    showDialog(message);
-        			    return;
-        			}
-        		}
-			}
-			// Now internal
-			else
-			{
-				String ContactLists = "Contact_Lists";
-				FileOutputStream fos;
-				try
-				{
-					File file = getBaseContext().getFileStreamPath("Contact_Lists");
-					if(!file.exists())
-					{
-						fos = openFileOutput(ContactLists, Context.MODE_PRIVATE);
-						fos.write(contactInfo.getBytes());
-					}
-				}
-				catch (FileNotFoundException e)
-				{
-					e.printStackTrace();
-					message = "Something bad happened.";
-					showDialog(message);
-					return;
-				}
-				catch (IOException e)
-				{
+		pb.setMax(contacts.size());
+
+		// Write pristine contact info to file for future reversal
+		// Try external first
+		if (Util.isExternalStorageWritable()) {
+			File file = new File(Environment.getExternalStorageDirectory()
+					.getPath() + "/SteveApp/", "backup_contacts.txt");
+			if (!file.exists()) {
+				try {
+					FileWriter fWriter = new FileWriter(Environment
+							.getExternalStorageDirectory().getPath()
+							+ "/SteveApp/backup_contacts.txt");
+					fWriter.write(contactInfo);
+					fWriter.close();
+				} catch (Exception e) {
 					e.printStackTrace();
 					message = "Something bad happened.";
 					showDialog(message);
 					return;
 				}
 			}
-			
-			// Now we need to populate an ArrayList of Threads build with ContactRunnables
-			// Initialize it here
-			ArrayList <Thread> contactWorkers = new ArrayList <Thread> ();
-			
-			int workLoad = contacts.size()/NUM_THREADS;
-			if (contacts.size() == 0)
-			{
-				message = "This person has no contacts, which is pretty sad.";
+		}
+		// Now internal
+		else {
+			String ContactLists = "Contact_Lists";
+			FileOutputStream fos;
+			try {
+				File file = getBaseContext().getFileStreamPath("Contact_Lists");
+				if (!file.exists()) {
+					fos = openFileOutput(ContactLists, Context.MODE_PRIVATE);
+					fos.write(contactInfo.getBytes());
+				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				message = "Something bad happened.";
+				showDialog(message);
+				return;
+			} catch (IOException e) {
+				e.printStackTrace();
+				message = "Something bad happened.";
 				showDialog(message);
 				return;
 			}
-			else if (workLoad < 1)
-			{
-				contactWorkers.add(new Thread(new ContactRunnable(0, contacts.size(), getContentResolver(), contacts, universal) ) );
-			}
-			else
-			{
-				// NUM_THREAD threads split up X-(X%8) contact changing tasks
-				for (int i = 0; i < NUM_THREADS; i++)
-				{
-					contactWorkers.add(new Thread(new ContactRunnable((i * workLoad), ((i + 1) * workLoad), getContentResolver(), contacts, universal) ) );
-				}
-				
-				// NUM_THREADS+1 thread picks up the rest if need be
-				if ((contacts.size()%NUM_THREADS) > 0)
-				{
-					contactWorkers.add(new Thread(new ContactRunnable(contacts.size() - ((contacts.size()) % NUM_THREADS), contacts.size(), getContentResolver(), contacts, universal) ) );
-				}
-			}
-			
-			// Loop that goes through contactWorkers and runs start() on all of them
-			for (int i = 0; i < contactWorkers.size(); i++)
-			{
-				contactWorkers.get(i).start();
-			}
-			
-			// We exit this loop once every thread has terminated
-			int i = 0;
-			while (i < contactWorkers.size())
-			{
-				if (contactWorkers.get(i).getState() == Thread.State.TERMINATED)
-				{
-					i++;
-				}
-			}
-			
-			message = "You have successfully changed all of the contacts on this phone to " + universal;
-			showDialog(message);
-			return;
 		}
-	}
+        new Thread(myThread).start();
+    }
+
+    private Runnable myThread = new Runnable()
+    { 
+        @SuppressLint("InlinedApi")
+		@Override
+        public void run() 
+        {
+        	// This loop changes all of the contacts
+    		for (int i = 0; i < contacts.size(); i++)
+    		{	 
+    			ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
+    			// DERPY UPDATE DONE HERE
+    			ops.add(ContentProviderOperation.newUpdate(ContactsContract.RawContacts.CONTENT_URI)
+    				.withSelection(ContactsContract.RawContacts._ID + " LIKE ?", new String[] {contacts.get(i).id})
+    				.withValue(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY, universal)
+    				.build());
+    						 
+    			try
+    			{
+    				resolver.applyBatch(ContactsContract.AUTHORITY, ops);
+    				hnd.sendMessage(hnd.obtainMessage());
+    			}
+    			catch (RemoteException e)
+    			{
+    				e.printStackTrace();
+    			}
+    			catch (OperationApplicationException e)
+    			{
+    				e.printStackTrace();
+    			}
+    		}
+
+            runOnUiThread(new Runnable() { 
+                public void run() {
+                    tv.setText("All contacts changed.");
+                }
+            });          
+        }
+    
+        Handler hnd = new Handler()
+        {    
+            @Override
+            public void handleMessage(Message msg) 
+            {
+                prg++;
+                pb.setProgress(prg);
+
+                String perc = String.valueOf(prg).toString();
+                tv.setText(perc + "/" + String.valueOf(contacts.size()) + " contacts changed.");
+            }
+        };
+    };
 
 	/**
 	 * Set up the {@link android.app.ActionBar}, if the API is available.

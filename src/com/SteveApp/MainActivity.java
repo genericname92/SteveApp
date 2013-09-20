@@ -42,27 +42,27 @@ public class MainActivity extends Activity
 	final Context context = this;
 	public final static String EXTRA_MESSAGE = "com.SteveApp.MESSAGE";
 	private int prg = 0;
-	private ArrayList <contactDuo> contacts;
+	private ArrayList<contactDuo> contacts;
 	private ContentResolver resolver;
 	private TextView tv;
 	private ProgressBar pb;
 	private String universal;
-	
+
 	public void showDialog(String message, Context context)
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-		 
+
 		// set dialog message
-		alertDialogBuilder
-			.setMessage(message)
-			.setCancelable(false)
-			.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog,int id) {
-					// if this button is clicked, close
-					// current activity
-					dialog.cancel();
-				}
-			  });
+		alertDialogBuilder.setMessage(message).setCancelable(false)
+				.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+				{
+					public void onClick(DialogInterface dialog, int id)
+					{
+						// if this button is clicked, close
+						// current activity
+						dialog.cancel();
+					}
+				});
 
 		// create alert dialog
 		AlertDialog alertDialog = alertDialogBuilder.create();
@@ -70,7 +70,7 @@ public class MainActivity extends Activity
 		// show it
 		alertDialog.show();
 	}
-	
+
 	@SuppressLint("InlinedApi")
 	public void onChangeClick(final View v)
 	{
@@ -92,7 +92,8 @@ public class MainActivity extends Activity
 			// Check if SD card is mounted
 			if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED))
 			{
-				File Dir = new File(android.os.Environment.getExternalStorageDirectory(), "SteveApp");
+				File Dir = new File(android.os.Environment.getExternalStorageDirectory(),
+						"SteveApp");
 				if (!Dir.exists()) // if directory is not here
 				{
 					Dir.mkdirs(); // make directory
@@ -117,7 +118,7 @@ public class MainActivity extends Activity
 			// A cursor is a list of objects obtained from a query. Data is
 			// separated into columns
 			Cursor cc = resolver.query(ContactsContract.RawContacts.CONTENT_URI, projection,
-									   ContactsContract.RawContacts._ID + " > 0", null, null);
+					ContactsContract.RawContacts._ID + " > 0", null, null);
 
 			// CONTACTS HAVE NOW BEEN GRABBED. CC HOLDS ALL OF THEM
 
@@ -133,8 +134,7 @@ public class MainActivity extends Activity
 			{
 				// Grab the columns of the 2 relevant fields we found. Grab data
 				// from each column. Write into array list
-				nameFieldColumnIndex1 = cc
-						.getColumnIndex(ContactsContract.RawContacts._ID);
+				nameFieldColumnIndex1 = cc.getColumnIndex(ContactsContract.RawContacts._ID);
 				nameFieldColumnIndex2 = cc
 						.getColumnIndex(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY);
 				if (!cc.getString(nameFieldColumnIndex2).equals("null"))
@@ -161,21 +161,20 @@ public class MainActivity extends Activity
 			// Try external first
 			if (Util.isExternalStorageWritable())
 			{
-				File file = new File(Environment.getExternalStorageDirectory()
-						.getPath() + "/SteveApp/", "backup_contacts.txt");
+				File file = new File(Environment.getExternalStorageDirectory().getPath()
+										+ "/SteveApp/", "backup_contacts.txt");
 				if (!file.exists())
 				{
 					try
 					{
 						FileWriter fWriter = new FileWriter(Environment.getExternalStorageDirectory().getPath()
-															+ "/SteveApp/backup_contacts.txt");
+								+ "/SteveApp/backup_contacts.txt");
 						fWriter.write(contactInfo);
 						fWriter.close();
 					}
 					catch (Exception e)
 					{
-						showDialog("Creating a backup file in external memory failed.",
-									context);
+						showDialog("Creating a backup file in external memory failed.", context);
 						setContentView(R.layout.activity_main);
 						return;
 					}
@@ -225,9 +224,12 @@ public class MainActivity extends Activity
 					{
 						ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
 						// CONTACT UPDATE DONE HERE
-						ops.add(ContentProviderOperation.newUpdate(ContactsContract.RawContacts.CONTENT_URI)
-								.withSelection(ContactsContract.RawContacts._ID+ " LIKE ?", new String[] { contacts.get(i).id })
-								.withValue(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY, universal).build());
+						ops.add(ContentProviderOperation
+								.newUpdate(ContactsContract.RawContacts.CONTENT_URI)
+								.withSelection(ContactsContract.RawContacts._ID + " LIKE ?",
+										new String[] { contacts.get(i).id })
+								.withValue(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY,
+										universal).build());
 
 						try
 						{
@@ -236,15 +238,13 @@ public class MainActivity extends Activity
 						}
 						catch (RemoteException e)
 						{
-							showDialog("An error occured during contacts changing.",
-										context);
+							showDialog("An error occured during contacts changing.", context);
 							setContentView(R.layout.activity_main);
 							return;
 						}
 						catch (OperationApplicationException e)
 						{
-							showDialog("An error occured during contacts changing.",
-										context);
+							showDialog("An error occured during contacts changing.", context);
 							setContentView(R.layout.activity_main);
 							return;
 						}
@@ -252,10 +252,10 @@ public class MainActivity extends Activity
 
 					runOnUiThread(new Runnable()
 					{
-						public void run() {
+						public void run()
+						{
 							tv.setText("All contacts successfully changed.");
-							showDialog("All contacts successfully changed.",
-										context);
+							showDialog("All contacts successfully changed.", context);
 							setContentView(R.layout.activity_main);
 						};
 					});
@@ -269,31 +269,32 @@ public class MainActivity extends Activity
 					{
 						prg++;
 						pb.setProgress(prg);
-
+						
 						String perc = String.valueOf(prg).toString();
 						tv.setText(perc + "/" + String.valueOf(contacts.size())
-									+ " contacts changed.");
+								+ " contacts changed.");
 					}
 				};
 			};
 			new Thread(myThread).start();
 		}
 	}
-	
+
 	@SuppressWarnings("resource")
 	public void onUndoClick(View arg0)
 	{
 		setContentView(R.layout.activity_display_message);
-        pb = (ProgressBar) findViewById(R.id.pbId);
-        tv = (TextView) findViewById(R.id.tvId);
-        
+		pb = (ProgressBar) findViewById(R.id.pbId);
+		tv = (TextView) findViewById(R.id.tvId);
+
 		String contactString = "";
 		Boolean done = false;
-		
+
 		// Try to read from external storage first
 		if (Util.isExternalStorageWritable())
 		{
-			File extFile = new File(Environment.getExternalStorageDirectory().getPath() + "/SteveApp/", "backup_contacts.txt" );
+			File extFile = new File(Environment.getExternalStorageDirectory().getPath()
+									+ "/SteveApp/", "backup_contacts.txt");
 			// If file exists in external storage, grab its contents
 			if (extFile.exists())
 			{
@@ -301,22 +302,23 @@ public class MainActivity extends Activity
 				try
 				{
 					String sCurrentLine;
-					br = new BufferedReader(new FileReader(Environment.getExternalStorageDirectory().getPath() + "/SteveApp/backup_contacts.txt"));
-					while((sCurrentLine = br.readLine()) != null)
+					br = new BufferedReader(new FileReader(Environment.getExternalStorageDirectory().getPath()
+							+ "/SteveApp/backup_contacts.txt"));
+					while ((sCurrentLine = br.readLine()) != null)
 					{
 						contactString += sCurrentLine;
 					}
 					// Set a boolean so we don't look around in internal storage
 					done = true;
-					
+
 					// Delete the file
 					extFile.delete();
 				}
 				catch (IOException e)
 				{
-                	showDialog("Error reading from external storage.", context);
-                	setContentView(R.layout.activity_main);
-                	return;
+					showDialog("Error reading from external storage.", context);
+					setContentView(R.layout.activity_main);
+					return;
 				}
 			}
 		}
@@ -325,15 +327,15 @@ public class MainActivity extends Activity
 		{
 			try
 			{
-				FileInputStream test = openFileInput ("Contact_Lists");
-				byte [] bytes = new byte [1];
+				FileInputStream test = openFileInput("Contact_Lists");
+				byte[] bytes = new byte[1];
 				while (test.read(bytes, 0, 1) != -1)
 				{
 					contactString += (char) bytes[0];
-					bytes = new byte [1];
+					bytes = new byte[1];
 				}
 				test.close();
-				
+
 				// Delete reversion file
 				File dir = getFilesDir();
 				File file = new File(dir, "Contact_Lists");
@@ -341,21 +343,21 @@ public class MainActivity extends Activity
 			}
 			catch (FileNotFoundException e)
 			{
-            	showDialog("No need to undo changes. Contacts list is pristine.", context);
-            	setContentView(R.layout.activity_main);
-            	return;
+				showDialog("No need to undo changes. Contacts list is pristine.", context);
+				setContentView(R.layout.activity_main);
+				return;
 			}
 			catch (IOException e)
 			{
 				showDialog("Reading from internal storage failed.", context);
-            	setContentView(R.layout.activity_main);
-            	return;
+				setContentView(R.layout.activity_main);
+				return;
 			}
 		}
 
 		// Create ArrayList of contactDuos to populate
-		contacts = new ArrayList<contactDuo> ();
-		
+		contacts = new ArrayList<contactDuo>();
+
 		// Now contactString is a string that contains the entire contact list 'encoded'
 		// Parse its contents into contacts
 		for (int i = 0; i < contactString.length(); i++)
@@ -367,7 +369,7 @@ public class MainActivity extends Activity
 				i++;
 			}
 			i++;
-					
+
 			String name = "";
 			while (contactString.charAt(i) != '|')
 			{
@@ -377,88 +379,92 @@ public class MainActivity extends Activity
 			contacts.add(new contactDuo(id, name));
 		}
 		pb.setMax(contacts.size());
-				
+
 		resolver = getContentResolver();
-			
+
 		Runnable myThread = new Runnable()
-	    { 
-		    @SuppressLint("InlinedApi")
-		    @Override
-		    public void run() 
-		    {
-		    	if (prg != 0)
-		        {
-		       		prg = 0;
-		        }
-		        	
-		        // 'Repair' contact list
-			   	for (int i = 0; i < contacts.size(); i++)
-			    {
-			   		ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
-			    				 
-			    	// CONTACT UPDATE DONE HERE
-			    	ops.add(ContentProviderOperation.newUpdate(ContactsContract.RawContacts.CONTENT_URI)
-			   				.withSelection(ContactsContract.RawContacts._ID + " LIKE ?", new String[] {contacts.get(i).id})
-			   			    .withValue(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY, contacts.get(i).display_name)
-			    			.build());
-			    				 
-			    	try
-			    	{
-			    		resolver.applyBatch(ContactsContract.AUTHORITY, ops);
-			    		hnd.sendMessage(hnd.obtainMessage());
-			    	}
-			    	catch (RemoteException e)
-			    	{
-			    		tv.setText("Reverting contacts failed.");
-		                showDialog("Reverting contacts failed.", context);
-		               	setContentView(R.layout.activity_main);
-		               	return;
-			    	}
-			    	catch (OperationApplicationException e)
-			    	{
-			    		tv.setText("Reverting contacts failed.");
-		               	showDialog("Reverting contacts failed.", context);
-		                setContentView(R.layout.activity_main);
-		               	return;
-			    	}
-			    }
+		{
+			@SuppressLint("InlinedApi")
+			@Override
+			public void run()
+			{
+				if (prg != 0)
+				{
+					prg = 0;
+				}
 
-			    runOnUiThread(new Runnable()
-			    { 
-		        	public void run()
-		        	{
-			        	tv.setText("Contacts list repaired.");
-			        	showDialog("Contacts list repaired.", context);
-		                setContentView(R.layout.activity_main);
-			        }
-			    });       
-		    }
-		    
-		    @SuppressLint("HandlerLeak")
+				// 'Repair' contact list
+				for (int i = 0; i < contacts.size(); i++)
+				{
+					ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
+
+					// CONTACT UPDATE DONE HERE
+					ops.add(ContentProviderOperation
+							.newUpdate(ContactsContract.RawContacts.CONTENT_URI)
+							.withSelection(ContactsContract.RawContacts._ID + " LIKE ?",
+									new String[] { contacts.get(i).id })
+							.withValue(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY,
+									contacts.get(i).display_name).build());
+
+					try
+					{
+						resolver.applyBatch(ContactsContract.AUTHORITY, ops);
+						hnd.sendMessage(hnd.obtainMessage());
+					}
+					catch (RemoteException e)
+					{
+						tv.setText("Reverting contacts failed.");
+						showDialog("Reverting contacts failed.", context);
+						setContentView(R.layout.activity_main);
+						return;
+					}
+					catch (OperationApplicationException e)
+					{
+						tv.setText("Reverting contacts failed.");
+						showDialog("Reverting contacts failed.", context);
+						setContentView(R.layout.activity_main);
+						return;
+					}
+				}
+
+				runOnUiThread(new Runnable()
+				{
+					public void run()
+					{
+						tv.setText("Contacts list repaired.");
+						showDialog("Contacts list repaired.", context);
+						setContentView(R.layout.activity_main);
+					}
+				});
+			}
+
+			@SuppressLint("HandlerLeak")
 			Handler hnd = new Handler()
-		    {    
-		        @Override
-		        public void handleMessage(Message msg) 
-		        {
-		            prg++;
-		            pb.setProgress(prg);
+			{
+				@Override
+				public void handleMessage(Message msg)
+				{
+					prg++;
+					pb.setProgress(prg);
 
-		            String perc = String.valueOf(prg).toString();
-	                tv.setText(perc + "/" + String.valueOf(contacts.size()) + " contacts repaired.");
-	            }
-		    };
+					String perc = String.valueOf(prg).toString();
+					tv.setText(perc + "/" + String.valueOf(contacts.size()) + " contacts repaired.");
+				}
+			};
 		};
 		new Thread(myThread).start();
 	}
-	
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;

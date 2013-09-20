@@ -145,8 +145,7 @@ public class MainActivity extends Activity
 			}
 			cc.close();
 
-			// This for loop creates the formatted string that we write to the
-			// file
+			// This for loop creates the formatted string that we write to the file
 			// Format is id:displayname|id2:displayname2
 			for (int i = 0; i < contacts.size(); i++)
 			{

@@ -140,7 +140,7 @@ public class MainActivity extends Activity
 				if (!cc.getString(nameFieldColumnIndex2).equals("null"))
 				{
 					contacts.add(new contactDuo(cc.getString(nameFieldColumnIndex1),
-												cc.getString(nameFieldColumnIndex2)));
+									cc.getString(nameFieldColumnIndex2)));
 				}
 			}
 			cc.close();

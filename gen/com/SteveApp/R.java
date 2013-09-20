@@ -37,9 +37,6 @@ public final class R {
     public static final class layout {
         public static final int activity_display_message=0x7f030000;
         public static final int activity_main=0x7f030001;
-        public static final int activity_revert_message=0x7f030002;
-        public static final int contacts_list_item=0x7f030003;
-        public static final int contacts_list_view=0x7f030004;
     }
     public static final class menu {
         public static final int display_message=0x7f070000;

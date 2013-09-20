@@ -8,6 +8,8 @@ import android.content.OperationApplicationException;
 import android.os.RemoteException;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class ContactRunnable implements Runnable
 {
@@ -17,13 +19,18 @@ public class ContactRunnable implements Runnable
 	private ArrayList <contactDuo> m_contacts;
 	private String m_universal;
 	
-	public ContactRunnable (int start, int end, ContentResolver resolver, ArrayList <contactDuo> contacts, String universal)
+	private ProgressBar m_Progress;
+	private TextView m_tv;
+	
+	public ContactRunnable (int start, int end, ContentResolver resolver, ArrayList <contactDuo> contacts, String universal, ProgressBar pBar, TextView tv)
 	{
 		m_start = start;
 		m_end = end;
 		m_resolver = resolver;
 		m_contacts = contacts;
 		m_universal = universal;
+		m_Progress = pBar;
+		m_tv = tv;
 	}
 
 	@SuppressLint("InlinedApi")
@@ -43,6 +50,8 @@ public class ContactRunnable implements Runnable
 			try
 			{
 				m_resolver.applyBatch(ContactsContract.AUTHORITY, ops);
+				m_Progress.incrementProgressBy(1);
+				m_tv.setText(Integer.toString(i));
 			}
 			catch (RemoteException e)
 			{

@@ -48,8 +48,8 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
         android:layout_marginTop="30dp"
-        android:onClick="sendMessage"
-        android:text="@string/button_send" />
+        android:text="@string/button_send"
+        android:onClick="onChangeClick" />
 
     <Button
         android:id="@+id/Undo"
@@ -59,7 +59,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:gravity="bottom|center_horizontal|end"
-        android:onClick="RevertChanges"
-        android:text="@string/Undo_Button" />
+        android:text="@string/Undo_Button"
+        android:onClick="onUndoClick" />
 
 </RelativeLayout>

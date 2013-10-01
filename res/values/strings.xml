@@ -8,6 +8,7 @@
     <string name="edit_message">Enter a name</string>
     <string name="title_activity_display_message">Contacts Changer</string>
     <string name="Undo_Button">Undo Changes</string>
+    <string name="Scramble_Button">Scramble Contacts</string>
     <string name="title_activity_revert_message">Contacts Changer</string>
 
 </resources>

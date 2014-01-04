@@ -44,7 +44,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:gravity="top"
-        android:text="This is the Contacts Hacker App. It changes all of the contacts on this phone's contact list into whatever you want; for example, &quot;Batman&quot;."
+        android:text="@string/intro"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
@@ -68,17 +68,6 @@
         android:gravity="bottom|center_horizontal|end"
         android:onClick="onUndoClick"
         android:text="@string/Undo_Button" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Undo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:gravity="center|end"
-        android:text="Developed by: Alex Chiou and Simon Hsieh"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>
 </ScrollView>

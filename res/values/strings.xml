@@ -3,12 +3,14 @@
 
     <string name="app_name">Contacts Hacker</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    
+    <!-- Main Page Material -->
     <string name="button_send">Change Contacts into</string>
     <string name="edit_message">Enter a name</string>
     <string name="title_activity_display_message">Contacts Changer</string>
     <string name="Undo_Button">Undo Changes</string>
     <string name="Scramble_Button">Scramble Contacts</string>
     <string name="title_activity_revert_message">Contacts Changer</string>
+    <string name="intro">This is the Contacts Hacker App. It changes all of the contacts on this phone\'s contact list into whatever you want; for example, &quot;Batman&quot;.</string>
 
 </resources>

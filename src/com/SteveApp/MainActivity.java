@@ -30,6 +30,8 @@ import android.os.RemoteException;
 import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -129,13 +131,15 @@ public class MainActivity extends Activity
 	{
 		EditText editText = (EditText) findViewById(R.id.edit_message);
 		universal = editText.getText().toString();
-		if (universal.equals(""))
+		if (universal.trim().equals(""))
 		{
-			showDialog("Please enter something to change all of this phone's contacts into.",
-						context);
+			showDialog("Please enter something to change all of this phone's contacts into.", context);
 		}
 		else
 		{
+			InputMethodManager inputManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+			inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+			
 			setContentView(R.layout.activity_display_message);
 
 			pb = (ProgressBar) findViewById(R.id.pbId);
@@ -297,7 +301,7 @@ public class MainActivity extends Activity
 		if (Util.isExternalStorageWritable())
 		{
 			File extFile = new File(Environment.getExternalStorageDirectory().getPath()
-									+ "/SteveApp/", "backup_contacts.txt");
+									+ "/SteveApp/","backup_contacts.txt");
 			// If file exists in external storage, grab its contents
 			if (extFile.exists())
 			{
@@ -625,6 +629,7 @@ public class MainActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 	}
 
 	@Override

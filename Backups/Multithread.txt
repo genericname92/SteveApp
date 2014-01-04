@@ -78,7 +78,7 @@
      		// Try external first
      		if (Util.isExternalStorageWritable())
      		{
-     			File file = new File(Environment.getExternalStorageDirectory().getPath() + "/SteveApp/", "backup_contacts.txt" );
+     			File file = new File(Environment.getExternalStorageDirectory().getPath() + "/SteveApp/","backup_contacts.txt" );
              	if (!file.exists())
              	{
              		try

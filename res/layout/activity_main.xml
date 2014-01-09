@@ -8,7 +8,7 @@
 	 <RelativeLayout
 	     android:id="@+id/RelativeLayout1"
 	     android:layout_width="match_parent"
-	     android:layout_height="459dp"
+	     android:layout_height="wrap_content"
 	     android:gravity="top"
 	     android:orientation="horizontal"
 	     android:padding="10dp" >
@@ -17,21 +17,21 @@
         android:id="@+id/edit_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/Changenames"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/Changenames"
+        android:layout_below="@+id/textView1"
+        android:singleLine="true"
+        android:layout_marginTop="30dp"
         android:hint="@string/edit_message" >
-
         <requestFocus />
     </EditText>
 
     <Button
         android:id="@+id/Changenames"
+        android:layout_alignBottom="@+id/edit_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="30dp"
         android:text="@string/button_send"
         android:onClick="onChangeClick" />
 
@@ -40,10 +40,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:gravity="top"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:text="@string/intro"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -53,8 +51,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/edit_message"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
-        android:gravity="bottom|center_horizontal|end"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
         android:onClick="onScrambleClick"
         android:text="@string/Scramble_Button" />
 
@@ -64,8 +62,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/Scramble"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="27dp"
-        android:gravity="bottom|center_horizontal|end"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
         android:onClick="onUndoClick"
         android:text="@string/Undo_Button" />
 

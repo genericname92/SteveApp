@@ -2,10 +2,9 @@
 <resources>
 
     <string name="app_name">Contacts Hacker</string>
-    <string name="action_settings">Settings</string>
     
     <!-- Main Page Material -->
-    <string name="button_send">Change Contacts into</string>
+    <string name="button_send">Change contacts into</string>
     <string name="edit_message">Enter a name</string>
     <string name="title_activity_display_message">Contacts Changer</string>
     <string name="Undo_Button">Undo Changes</string>

@@ -9,7 +9,23 @@
     <string name="title_activity_display_message">Contacts Changer</string>
     <string name="Undo_Button">Undo Changes</string>
     <string name="Scramble_Button">Scramble Contacts</string>
+    <string name="grabBag">Grab Bag Fun Time</string>
     <string name="title_activity_revert_message">Contacts Changer</string>
-    <string name="intro">This is the Contacts Hacker App. It changes all of the contacts on this phone\'s contact list into whatever you want; for example, &quot;Batman&quot;.</string>
+    <string name="intro">This is the Contacts Hacker App. 
+        				 It changes all of the contacts on this phone\'s contact list 
+        				 into whatever you want; for example, \"Batman\".</string>
+    
+    <!-- Grab Page Material -->
+    <string name="suggestions">Our Suggestions</string>
+    <string name="name1">Name 1:</string>
+    <string name="name2">Name 2:</string>
+    <string name="name3">Name 3:</string>
+    <string name="name4">Name 4:</string>
+    <string name="name5">Name 5:</string>
+    <string name="change_contacts">Change Contacts!</string>
+    <string name="intro_grab">Here, you can set each of the contacts on this phone to a randomly selected 
+       						  name from the \"grab bag\" that you create below (Empty fields will be ignored). 
+        					  You can also use one of our preset name lists by clicking the 
+        					  \"Our Suggestions\" button.</string>
 
 </resources>

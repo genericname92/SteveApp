@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+  	android:layout_height="wrap_content">
+  	
+	 <RelativeLayout
+	     android:id="@+id/RelativeLayout1"
+	     android:layout_width="match_parent"
+	     android:layout_height="wrap_content"
+	     android:gravity="top"
+	     android:orientation="horizontal"
+	     android:padding="10dp" >
+	     
+			<TextView
+			    android:id="@+id/intro_grab"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_alignParentTop="true"
+			    android:text="@string/intro_grab"
+			    android:textSize="@dimen/activity_horizontal_margin" />
+			
+			<EditText
+		        android:id="@+id/edit_message1"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_below="@+id/intro_grab"
+		        android:singleLine="true"
+		        android:layout_toRightOf="@+id/name1">
+		    </EditText>
+	
+			<TextView
+			    android:id="@+id/name1"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_alignBottom="@+id/edit_message1"
+			    android:singleLine="true"
+			    android:text="@string/name1"
+			    android:textSize="@dimen/Durdles" >
+	    	</TextView>
+	    	
+			<EditText
+		        android:id="@+id/edit_message2"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_below="@+id/edit_message1"
+		        android:singleLine="true"
+		        android:layout_toRightOf="@+id/name2">
+		    </EditText>
+	
+			<TextView
+			    android:id="@+id/name2"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_alignBottom="@+id/edit_message2"
+			    android:singleLine="true"
+			    android:text="@string/name2"
+			    android:textSize="@dimen/Durdles" >
+	    	</TextView>
+	    	
+			<EditText
+		        android:id="@+id/edit_message3"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_below="@+id/edit_message2"
+		        android:singleLine="true"
+		        android:layout_toRightOf="@+id/name2">
+		    </EditText>
+	
+			<TextView
+			    android:id="@+id/name3"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_alignBottom="@+id/edit_message3"
+			    android:singleLine="true"
+			    android:text="@string/name3"
+			    android:textSize="@dimen/Durdles" >
+	    	</TextView>
+	    	
+			<EditText
+		        android:id="@+id/edit_message4"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_below="@+id/edit_message3"
+		        android:singleLine="true"
+		        android:layout_toRightOf="@+id/name4">
+		    </EditText>
+	
+			<TextView
+			    android:id="@+id/name4"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_alignBottom="@+id/edit_message4"
+			    android:singleLine="true"
+			    android:text="@string/name4"
+			    android:textSize="@dimen/Durdles" >
+	    	</TextView>
+	    	
+			<EditText
+		        android:id="@+id/edit_message5"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_below="@+id/edit_message4"
+		        android:singleLine="true"
+		        android:layout_toRightOf="@+id/name5">
+		    </EditText>
+	
+			<TextView
+			    android:id="@+id/name5"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_alignBottom="@+id/edit_message5"
+			    android:singleLine="true"
+			    android:text="@string/name5"
+			    android:textSize="@dimen/Durdles" >
+	    	</TextView>
+	    	
+			<Button
+			    android:id="@+id/change_contacts"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_below="@+id/edit_message5"
+			    android:layout_marginTop="10dp"
+			    android:layout_centerHorizontal="true"
+			    android:onClick="grabChange"
+			    android:text="@string/change_contacts" />
+	    	
+			<Button
+			    android:id="@+id/suggestions"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_below="@+id/change_contacts"
+			    android:layout_marginTop="20dp"
+			    android:layout_centerHorizontal="true"
+			    android:onClick="goToSuggestions"
+			    android:text="@string/suggestions" />
+
+	</RelativeLayout>
+</ScrollView>

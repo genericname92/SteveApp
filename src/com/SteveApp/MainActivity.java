@@ -293,6 +293,7 @@ public class MainActivity extends Activity
 	@SuppressLint("InlinedApi")
 	public void goToGrabBag(final View v)
 	{
+		killKeyboard();
 		currentPage = "Grab Page";
 		setContentView(R.layout.combo);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -381,6 +382,7 @@ public class MainActivity extends Activity
 	@SuppressLint("InlinedApi")
 	public void onChangeClick(final View v)
 	{
+		killKeyboard();
 		EditText editText = (EditText) findViewById(R.id.edit_message);
 		universal = editText.getText().toString();
 		if (universal.trim().equals(""))
@@ -398,6 +400,7 @@ public class MainActivity extends Activity
 	@SuppressWarnings("resource")
 	public void onUndoClick(View arg0)
 	{
+		killKeyboard();
 		setContentView(R.layout.activity_display_message);
 		pb = (ProgressBar) findViewById(R.id.pbId);
 		tv = (TextView) findViewById(R.id.tvId);
@@ -573,6 +576,7 @@ public class MainActivity extends Activity
 	@SuppressLint("InlinedApi")
 	public void onScrambleClick(final View v)
 	{
+		killKeyboard();
 		setContentView(R.layout.activity_display_message);
 
 		pb = (ProgressBar) findViewById(R.id.pbId);
